@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ 'title.contacts_list'|trans }}
+{% endblock %}
+
+{% block body %}
+    <h1>{{ 'title.contacts_list'|trans }}</h1>
+    {% if pagination is defined and pagination.items|length %}
+
+        <div class="navigation text-center">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>{{ knp_pagination_sortable(pagination, 'label.id'|trans, 'contacts.id') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label.name'|trans, 'contacts.name') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label.phone'|trans, 'contacts.phone') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label.description'|trans, 'contacts.description') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label.created_at'|trans, 'contacts.createdAt') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label.updated_at'|trans, 'contacts.updatedAt') }}</th>
+                <th>{{ 'label.actions'|trans }}</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for contact in pagination.items %}
+                <tr>
+                    <td>{{ contact.id }}</td>
+                    <td>{{ contact.name }}</td>
+                    <td>{{ contact.phone }}</td>
+                    <td>{{ contact.description }}</td>
+                    <td>{{ contact.createdAt|date('Y/m/d H:i') }}</td>
+                    <td>{{ contact.updatedAt|date('Y/m/d H:i') }}</td>
+                    <td>
+                        <a href="{{ url('contacts_show', {id: contact.id}) }}" title="{{ 'action.show'|trans }}">
+                            {{ 'action.show'|trans }}
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="navigation text-center">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+
+    {% else %}
+        <p>
+            {{ 'message.empty_list'|trans }}
+        </p>
+    {% endif %}
+{% endblock %}
