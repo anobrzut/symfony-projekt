@@ -6,6 +6,7 @@
 
 {% block body %}
     <h1>{{ 'title.category_details'|trans({'%id%': category.id|default('')}) }}</h1>
+
     {% if category is defined %}
         <dl class="dl-horizontal">
             <dt>{{ 'label.id'|trans }}</dt>
@@ -18,13 +19,14 @@
             <dd>{{ category.updatedAt|date('Y/m/d H:i') }}</dd>
         </dl>
         <p>
-            <a href="{{ url('category_index') }}" title="{{ 'action.back_to_list'|trans }}">
+            <a href="{{ path('category_index') }}" title="{{ 'action.back_to_list'|trans }}" class="btn btn-secondary">
                 {{ 'action.back_to_list'|trans }}
             </a>
         </p>
     {% else %}
-        <p>
+
+        <div class="alert alert-warning" role="alert">
             {{ 'message.record_not_found'|trans }}
-        </p>
+        </div>
     {% endif %}
 {% endblock %}

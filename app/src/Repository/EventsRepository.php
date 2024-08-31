@@ -4,8 +4,11 @@ namespace App\Repository;
 
 use App\Entity\Events;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\ORM\ORMException;
+use Doctrine\ORM\OptimisticLockException;
 
 /**
  * Class EventsRepository.
@@ -57,5 +60,32 @@ class EventsRepository extends ServiceEntityRepository
     private function getOrCreateQueryBuilder(QueryBuilder $queryBuilder = null): QueryBuilder
     {
         return $queryBuilder ?? $this->createQueryBuilder('events');
+    }
+
+    /**
+     * Save entity.
+     *
+     * @param Events $event Event entity
+     */
+    public function save(Events $event): void
+    {
+        $entityManager = $this->getEntityManager();
+        $entityManager->persist($event);
+        $entityManager->flush();
+    }
+
+    /**
+     * Delete entity.
+     *
+     * @param Events $event Event entity
+     *
+     * @throws ORMException
+     * @throws OptimisticLockException
+     */
+    public function delete(Events $event): void
+    {
+        $entityManager = $this->getEntityManager();
+        $entityManager->remove($event);
+        $entityManager->flush();
     }
 }

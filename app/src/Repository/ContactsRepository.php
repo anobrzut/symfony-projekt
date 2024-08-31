@@ -4,6 +4,9 @@ namespace App\Repository;
 
 use App\Entity\Contacts;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\ORMException;
+use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -57,5 +60,32 @@ class ContactsRepository extends ServiceEntityRepository
     private function getOrCreateQueryBuilder(QueryBuilder $queryBuilder = null): QueryBuilder
     {
         return $queryBuilder ?? $this->createQueryBuilder('contacts');
+    }
+
+    /**
+     * Save entity.
+     *
+     * @param Contacts $contact Contacts entity
+     */
+    public function save(Contacts $contact): void
+    {
+        $entityManager = $this->getEntityManager();
+        $entityManager->persist($contact);
+        $entityManager->flush();
+    }
+
+    /**
+     * Delete entity.
+     *
+     * @param Contacts $contact Contacts entity
+     *
+     * @throws ORMException
+     * @throws OptimisticLockException
+     */
+    public function delete(Contacts $contact): void
+    {
+        $entityManager = $this->getEntityManager();
+        $entityManager->remove($contact);
+        $entityManager->flush();
     }
 }

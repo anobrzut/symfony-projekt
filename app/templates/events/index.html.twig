@@ -6,6 +6,14 @@
 
 {% block body %}
     <h1>{{ 'title.event_list'|trans }}</h1>
+
+
+    <div class="mb-3">
+        <a href="{{ path('event_create') }}" class="btn btn-success">
+            {{ 'action.add_new'|trans }}
+        </a>
+    </div>
+
     {% if pagination is defined and pagination.items|length %}
 
         <div class="navigation text-center">
@@ -36,8 +44,17 @@
                     <td>{{ event.createdAt|format_date('long') }}</td>
                     <td>{{ event.updatedAt|format_date('long') }}</td>
                     <td>
-                        <a href="{{ url('event_show', {id: event.id}) }}" title="{{ 'action.show'|trans }}">
-                            {{ 'action.show'|trans }}
+                        <!-- Link to show event -->
+                        <a href="{{ url('event_show', {id: event.id}) }}" title="{{ 'action.show'|trans }}" class="btn btn-sm btn-primary">
+                            <i class="bi bi-eye"></i> {{ 'action.show'|trans }}
+                        </a>
+                        <!-- Link to edit event -->
+                        <a href="{{ url('event_edit', {id: event.id}) }}" title="{{ 'action.edit'|trans }}" class="btn btn-sm btn-warning">
+                            <i class="bi bi-pencil"></i> {{ 'action.edit'|trans }}
+                        </a>
+                        <!-- Link to delete event -->
+                        <a href="{{ url('event_delete', {id: event.id}) }}" title="{{ 'action.delete'|trans }}" class="btn btn-sm btn-danger" onclick="return confirm('{{ 'message.confirm_delete'|trans }}');">
+                            <i class="bi bi-trash"></i> {{ 'action.delete'|trans }}
                         </a>
                     </td>
                 </tr>
@@ -50,8 +67,8 @@
         </div>
 
     {% else %}
-        <p>
+        <div class="alert alert-info">
             {{ 'message.empty_list'|trans }}
-        </p>
+        </div>
     {% endif %}
 {% endblock %}

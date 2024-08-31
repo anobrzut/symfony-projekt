@@ -78,7 +78,8 @@ class Events
      *
      * @var Category|null
      */
-    #[ORM\ManyToOne]
+    #[ORM\ManyToOne(targetEntity: Category::class, fetch: 'EXTRA_LAZY')]
+    #[ORM\JoinColumn(nullable: false)]
     private ?Category $category = null;
 
     /**
