@@ -28,16 +28,24 @@ RUN docker-php-source extract && \
     docker-php-ext-install intl && \
     docker-php-source delete
 
+# Install dependencies for ext-http
+RUN apt-get update && \
+    apt-get install -y libcurl4-openssl-dev pkg-config libssl-dev
+
+# Install ext-http via PECL
+RUN pecl install pecl_http && \
+    docker-php-ext-enable http
+
 # Setup php.ini
 COPY php.ini /usr/local/etc/php/php.ini
-COPY php-fpm-pool.conf 	/usr/local/etc/php/pool.d/www.conf
+COPY php-fpm-pool.conf /usr/local/etc/php/pool.d/www.conf
 
 # Install Composer
 RUN curl -sSk https://getcomposer.org/installer | php -- --disable-tls --version=2.6.6 && \
-mv composer.phar /usr/local/bin/composer
+    mv composer.phar /usr/local/bin/composer
 
 # Install Symfony CLI
-RUN	wget https://get.symfony.com/cli/installer -O - | bash && \
+RUN wget https://get.symfony.com/cli/installer -O - | bash && \
     mv /root/.symfony5/bin/symfony /usr/local/bin/symfony
 
 # Install xdebug
@@ -62,7 +70,7 @@ RUN docker-php-source delete
 RUN apt-get install -y gcc g++ make
 
 # Install Node.js
-RUN curl -fsSL https://deb.nodesource.com/setup_lts.x && \
+RUN curl -fsSL https://deb.nodesource.com/setup_lts.x | bash - && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y nodejs
 
 # APT cleanup

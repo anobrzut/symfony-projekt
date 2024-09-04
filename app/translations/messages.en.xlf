@@ -102,6 +102,22 @@
                      <source>action.back_to_list</source>
                      <target>Go Back</target>
                  </trans-unit>
+      <trans-unit id="action.add_new">
+                           <source>action.add_new</source>
+                           <target>Add New</target>
+                       </trans-unit>
+       <trans-unit id="action.edit">
+                            <source>action.edit</source>
+                            <target>edit</target>
+                        </trans-unit>
+        <trans-unit id="action.delete">
+                             <source>action.delete</source>
+                             <target>delete</target>
+                         </trans-unit>
+        <trans-unit id="action.save">
+                             <source>action.save</source>
+                             <target>save</target>
+                         </trans-unit>
     </body>
   </file>
 </xliff>
