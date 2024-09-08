@@ -6,8 +6,12 @@
 namespace App\Entity;
 
 use App\Repository\EventsRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo; // Import Gedmo annotations
+use Symfony\Component\Validator\Constraints as Assert; // Import Symfony validation constraints
 use DateTimeInterface;
 
 /**
@@ -19,219 +23,160 @@ use DateTimeInterface;
 #[ORM\Table(name: 'events')]
 class Events
 {
-    /**
-     * Primary key.
-     *
-     * @var int|null
-     */
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
     private ?int $id = null;
 
-    /**
-     * Title.
-     *
-     * @var string|null
-     */
     #[ORM\Column(length: 255)]
     private ?string $title = null;
 
-    /**
-     * Created at.
-     *
-     * @var DateTimeInterface|null
-     *
-     * @psalm-suppress PropertyNotSetInConstructor
-     */
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[Gedmo\Timestampable(on: 'create')]
     private ?DateTimeInterface $createdAt = null;
 
-    /**
-     * Updated at.
-     *
-     * @var DateTimeInterface|null
-     *
-     * @psalm-suppress PropertyNotSetInConstructor
-     */
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[Gedmo\Timestampable(on: 'update')]
     private ?DateTimeInterface $updatedAt = null;
 
-    /**
-     * Description.
-     *
-     * @var string|null
-     */
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $description = null;
 
-    /**
-     * Date.
-     *
-     * @var DateTimeInterface|null
-     */
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?DateTimeInterface $date = null;
 
-    /**
-     * Category.
-     *
-     * @var Category|null
-     */
     #[ORM\ManyToOne(targetEntity: Category::class, fetch: 'EXTRA_LAZY')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Category $category = null;
 
     /**
-     * Getter for Id.
+     * Tags associated with the event.
      *
-     * @return int|null Id
+     * @var Collection<int, Tag>
      */
+    #[ORM\ManyToMany(targetEntity: Tag::class, fetch: 'EXTRA_LAZY', orphanRemoval: true)]
+    #[ORM\JoinTable(name: 'events_tags')]
+    private Collection $tags;
+
+    /**
+     * Author of the event.
+     *
+     * @var User|null
+     */
+    #[ORM\ManyToOne(targetEntity: User::class, fetch: 'EXTRA_LAZY')]
+    #[ORM\JoinColumn(nullable: false)]
+    #[Assert\NotBlank]
+    #[Assert\Type(User::class)]
+    private ?User $author = null;
+
+    public function __construct()
+    {
+        $this->tags = new ArrayCollection();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    /**
-     * Getter for title.
-     *
-     * @return string|null Title
-     */
     public function getTitle(): ?string
     {
         return $this->title;
     }
 
-    /**
-     * Setter for title.
-     *
-     * @param string $title Title
-     *
-     * @return static
-     */
     public function setTitle(string $title): static
     {
         $this->title = $title;
-
         return $this;
     }
 
-    /**
-     * Getter for created at.
-     *
-     * @return DateTimeInterface|null Created at
-     */
     public function getCreatedAt(): ?DateTimeInterface
     {
         return $this->createdAt;
     }
 
-    /**
-     * Setter for created at.
-     *
-     * @param DateTimeInterface $createdAt Created at
-     *
-     * @return static
-     */
     public function setCreatedAt(DateTimeInterface $createdAt): static
     {
         $this->createdAt = $createdAt;
-
         return $this;
     }
 
-    /**
-     * Getter for updated at.
-     *
-     * @return DateTimeInterface|null Updated at
-     */
     public function getUpdatedAt(): ?DateTimeInterface
     {
         return $this->updatedAt;
     }
 
-    /**
-     * Setter for updated at.
-     *
-     * @param DateTimeInterface $updatedAt Updated at
-     *
-     * @return static
-     */
     public function setUpdatedAt(DateTimeInterface $updatedAt): static
     {
         $this->updatedAt = $updatedAt;
-
         return $this;
     }
 
-    /**
-     * Getter for description.
-     *
-     * @return string|null Description
-     */
     public function getDescription(): ?string
     {
         return $this->description;
     }
 
-    /**
-     * Setter for description.
-     *
-     * @param string|null $description Description
-     *
-     * @return static
-     */
     public function setDescription(?string $description): static
     {
         $this->description = $description;
-
         return $this;
     }
 
-    /**
-     * Getter for date.
-     *
-     * @return DateTimeInterface|null Date
-     */
     public function getDate(): ?DateTimeInterface
     {
         return $this->date;
     }
 
-    /**
-     * Setter for date.
-     *
-     * @param DateTimeInterface $date Date
-     *
-     * @return static
-     */
     public function setDate(DateTimeInterface $date): static
     {
         $this->date = $date;
-
         return $this;
     }
 
-    /**
-     * Getter for category.
-     *
-     * @return Category|null Category
-     */
     public function getCategory(): ?Category
     {
         return $this->category;
     }
 
-    /**
-     * Setter for category.
-     *
-     * @param Category|null $category Category
-     *
-     * @return static
-     */
     public function setCategory(?Category $category): static
     {
         $this->category = $category;
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Tag>
+     */
+    public function getTags(): Collection
+    {
+        return $this->tags;
+    }
+
+    public function addTag(Tag $tag): static
+    {
+        if (!$this->tags->contains($tag)) {
+            $this->tags->add($tag);
+        }
+
+        return $this;
+    }
+
+    public function removeTag(Tag $tag): static
+    {
+        $this->tags->removeElement($tag);
+
+        return $this;
+    }
+
+    public function getAuthor(): ?User
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(?User $author): static
+    {
+        $this->author = $author;
 
         return $this;
     }

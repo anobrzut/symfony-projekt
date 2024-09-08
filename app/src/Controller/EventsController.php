@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 /**
  * Class EventsController.
@@ -25,7 +26,7 @@ class EventsController extends AbstractController
      * Constructor.
      *
      * @param EventsServiceInterface $eventsService Events service
-     * @param TranslatorInterface $translator Translator
+     * @param TranslatorInterface    $translator    Translator
      */
     public function __construct(
         private readonly EventsServiceInterface $eventsService,
@@ -36,14 +37,17 @@ class EventsController extends AbstractController
     /**
      * Index action.
      *
-     * @param int $page Page number
+     * @param Request $request HTTP request
      *
      * @return Response HTTP response
      */
     #[Route(name: 'event_index', methods: 'GET')]
-    public function index(#[MapQueryParameter] int $page = 1): Response
+    public function index(Request $request): Response
     {
-        $pagination = $this->eventsService->getPaginatedList($page);
+        $page = $request->query->getInt('page', 1);
+        $user = $this->getUser(); // Get the current authenticated user
+
+        $pagination = $this->eventsService->getPaginatedList($page, $user);
 
         return $this->render('events/index.html.twig', ['pagination' => $pagination]);
     }
@@ -55,12 +59,8 @@ class EventsController extends AbstractController
      *
      * @return Response HTTP response
      */
-    #[Route(
-        '/{id}',
-        name: 'event_show',
-        requirements: ['id' => '[1-9]\d*'],
-        methods: 'GET'
-    )]
+    #[Route('/{id}', name: 'event_show', requirements: ['id' => '[1-9]\d*'], methods: 'GET')]
+    #[IsGranted('VIEW', subject: 'event')]
     public function show(Events $event): Response
     {
         return $this->render('events/show.html.twig', ['event' => $event]);
@@ -73,14 +73,14 @@ class EventsController extends AbstractController
      *
      * @return Response HTTP response
      */
-    #[Route(
-        '/create',
-        name: 'event_create',
-        methods: ['GET', 'POST'],
-    )]
+    #[Route('/create', name: 'event_create', methods: ['GET', 'POST'])]
     public function create(Request $request): Response
     {
+        /** @var User $user */
+        $user = $this->getUser();
         $event = new Events();
+        $event->setAuthor($user); // Set the current user as the author
+
         $form = $this->createForm(EventsType::class, $event);
         $form->handleRequest($request);
 
@@ -95,21 +95,19 @@ class EventsController extends AbstractController
             return $this->redirectToRoute('event_index');
         }
 
-        return $this->render(
-            'events/create.html.twig',
-            ['form' => $form->createView()]
-        );
+        return $this->render('events/create.html.twig', ['form' => $form->createView()]);
     }
 
     /**
      * Edit action.
      *
-     * @param Request  $request HTTP request
-     * @param Events   $event   Event entity
+     * @param Request $request HTTP request
+     * @param Events  $event   Event entity
      *
      * @return Response HTTP response
      */
     #[Route('/{id}/edit', name: 'event_edit', requirements: ['id' => '[1-9]\d*'], methods: ['GET', 'PUT'])]
+    #[IsGranted('EDIT', subject: 'event')]
     public function edit(Request $request, Events $event): Response
     {
         $form = $this->createForm(
@@ -151,6 +149,7 @@ class EventsController extends AbstractController
      * @return Response HTTP response
      */
     #[Route('/{id}/delete', name: 'event_delete', requirements: ['id' => '[1-9]\d*'], methods: ['GET', 'DELETE'])]
+    #[IsGranted('DELETE', subject: 'event')]
     public function delete(Request $request, Events $event): Response
     {
         $form = $this->createForm(FormType::class, $event, [

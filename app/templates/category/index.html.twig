@@ -7,10 +7,11 @@
 {% block body %}
     <h1>{{ 'title.category_list'|trans }}</h1>
 
-
-    <a href="{{ path('category_create') }}" class="btn btn-primary mb-3">
-        {{ 'action.add_new'|trans }}
-    </a>
+    {% if is_granted('ROLE_ADMIN') %}
+        <a href="{{ path('category_create') }}" class="btn btn-primary mb-3">
+            {{ 'action.add_new'|trans }}
+        </a>
+    {% endif %}
 
     {% if pagination is defined and pagination.items|length %}
         <div class="navigation text-center">
@@ -35,17 +36,18 @@
                     <td>{{ category.createdAt|date('Y/m/d H:i') }}</td>
                     <td>{{ category.updatedAt|date('Y/m/d H:i') }}</td>
                     <td>
-                        <!-- Linki do akcji -->
-                        <a href="{{ path('category_show', {id: category.id}) }}" title="{{ 'action.show'|trans }}" class="btn btn-secondary btn-sm">
-                            {{ 'action.show'|trans }}
-                        </a>
-                        <a href="{{ path('category_edit', {id: category.id}) }}" title="{{ 'action.edit'|trans }}" class="btn btn-warning btn-sm">
-                            {{ 'action.edit'|trans }}
-                        </a>
-                        <a href="{{ path('category_delete', {id: category.id}) }}" title="{{ 'action.delete'|trans }}" class="btn btn-danger btn-sm"
-                           onclick="return confirm('{{ 'message.confirm_delete'|trans }}');">
-                            {{ 'action.delete'|trans }}
-                        </a>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <a href="{{ path('category_show', {id: category.id}) }}" title="{{ 'action.show'|trans }}" class="btn btn-secondary btn-sm">
+                                {{ 'action.show'|trans }}
+                            </a>
+                            <a href="{{ path('category_edit', {id: category.id}) }}" title="{{ 'action.edit'|trans }}" class="btn btn-warning btn-sm">
+                                {{ 'action.edit'|trans }}
+                            </a>
+                            <a href="{{ path('category_delete', {id: category.id}) }}" title="{{ 'action.delete'|trans }}" class="btn btn-danger btn-sm"
+                               onclick="return confirm('{{ 'message.confirm_delete'|trans }}');">
+                                {{ 'action.delete'|trans }}
+                            </a>
+                        {% endif %}
                     </td>
                 </tr>
             {% endfor %}
@@ -57,7 +59,6 @@
         </div>
 
     {% else %}
-
         <div class="alert alert-info" role="alert">
             {{ 'message.empty_list'|trans }}
         </div>

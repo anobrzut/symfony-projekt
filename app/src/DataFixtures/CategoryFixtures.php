@@ -18,13 +18,18 @@ class CategoryFixtures extends AbstractBaseFixtures
      */
     protected function loadData(): void
     {
-        for ($i = 0; $i < 10; ++$i) {
+        $this->createMany(10, 'categories', function (int $i) {
             $category = new Category();
             $category->setTitle($this->faker->word);
-            $category->setCreatedAt($this->faker->dateTimeBetween('-100 days', '-1 days'));
-            $category->setUpdatedAt($this->faker->dateTimeBetween('-100 days', '-1 days'));
-            $this->manager->persist($category);
-        }
+
+            $createdAt = new \DateTimeImmutable($this->faker->dateTimeBetween('-100 days', '-1 days')->format('Y-m-d H:i:s'));
+            $updatedAt = new \DateTimeImmutable($this->faker->dateTimeBetween($createdAt->format('Y-m-d H:i:s'), 'now')->format('Y-m-d H:i:s'));
+
+            $category->setCreatedAt($createdAt);
+            $category->setUpdatedAt($updatedAt);
+
+            return $category;
+        });
 
         $this->manager->flush();
     }

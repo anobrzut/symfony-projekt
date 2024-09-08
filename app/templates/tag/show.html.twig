@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tag{% endblock %}
+
+{% block body %}
+    <h1>Tag</h1>
+
+    <table>
+        <tbody>
+        <tr>
+            <th>ID</th>
+            <td>{{ tag.id }}</td>
+        </tr>
+        <tr>
+            <th>Title</th>
+            <td>{{ tag.title }}</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('tag_index') }}">back to list</a>
+    <a href="{{ path('tag_edit', {'id': tag.id}) }}">edit</a>
+    <a href="{{ path('tag_delete', {'id': tag.id}) }}">delete</a>
+{% endblock %}

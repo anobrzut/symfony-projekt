@@ -7,7 +7,9 @@ namespace App\DataFixtures;
 
 use App\Entity\Events;
 use App\Entity\Category;
-use Doctrine\Persistence\ObjectManager;
+use App\Entity\Tag;
+use App\Entity\User;
+use DateTimeImmutable;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
 /**
@@ -15,31 +17,42 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
  */
 class EventsFixtures extends AbstractBaseFixtures implements DependentFixtureInterface
 {
-    /**
-     * Load data.
-     */
     protected function loadData(): void
     {
-        $categories = $this->manager->getRepository(Category::class)->findAll();
-
-        for ($i = 0; $i < 10; ++$i) {
+        $this->createMany(10, 'events', function (int $i) {
             $event = new Events();
-            $event->setTitle($this->faker->word);
-            $event->setCreatedAt($this->faker->dateTimeBetween('-100 days', '-1 days'));
-            $event->setUpdatedAt($this->faker->dateTimeBetween('-100 days', '-1 days'));
+            $event->setTitle($this->faker->sentence);
             $event->setDescription($this->faker->sentence);
             $event->setDate($this->faker->dateTimeBetween('now', '+100 days'));
-            $event->setCategory($this->faker->randomElement($categories));
-            $this->manager->persist($event);
-        }
+            $event->setCreatedAt(DateTimeImmutable::createFromMutable($this->faker->dateTimeBetween('-100 days', '-1 days')));
+            $event->setUpdatedAt(DateTimeImmutable::createFromMutable($this->faker->dateTimeBetween('-100 days', '-1 days')));
+
+            /** @var Category $category */
+            $category = $this->getRandomReference('categories');
+            $event->setCategory($category);
+
+            /** @var array<array-key, Tag> $tags */
+            $tags = $this->getRandomReferences('tags', $this->faker->numberBetween(0, 5));
+            foreach ($tags as $tag) {
+                $event->addTag($tag);
+            }
+
+            /** @var User $author */
+            $author = $this->getRandomReference('users');
+            $event->setAuthor($author);
+
+            return $event;
+        });
 
         $this->manager->flush();
     }
 
-    public function getDependencies()
+    public function getDependencies(): array
     {
         return [
             CategoryFixtures::class,
+            TagFixtures::class,
+            UserFixtures::class,
         ];
     }
 }

@@ -41,8 +41,9 @@ class ContactsController extends AbstractController
      * @return Response HTTP response
      */
     #[Route(name: 'contacts_index', methods: 'GET')]
-    public function index(#[MapQueryParameter] int $page = 1): Response
+    public function index(Request $request): Response
     {
+        $page = $request->query->getInt('page', 1);
         $pagination = $this->contactsService->getPaginatedList($page);
 
         return $this->render('contacts/index.html.twig', ['pagination' => $pagination]);

@@ -1,15 +1,12 @@
-{#
-Default template for forms.
-
-parameters:
-    - page_title: page title
-    - form: form view variable
-    - submit_label: label for submit button
-#}
 {% extends 'base.html.twig' %}
 
 {% block title %}
     {{ page_title }}
+{% endblock %}
+
+{# Override the header block to avoid rendering the navbar #}
+{% block header %}
+    {# Do nothing here to suppress the header output #}
 {% endblock %}
 
 {% block body %}
@@ -19,7 +16,7 @@ parameters:
         {% include 'default/_single_alert_message.html.twig' with {
             type: 'danger',
             message: 'message.form_error'|trans,
-        }%}
+        } %}
     {% endif %}
     {{ form_widget(form) }}
     <div class="form-group row float-sm-right">

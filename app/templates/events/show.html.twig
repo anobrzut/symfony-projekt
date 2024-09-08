@@ -18,6 +18,14 @@
             <dd>{{ event.date|date('Y/m/d H:i') }}</dd>
             <dt>{{ 'label.category'|trans }}</dt>
             <dd>{{ event.category.title }}</dd>
+            <dt>{{ 'label.tags'|trans }}</dt>
+            <dd>
+                {% for tag in event.tags %}
+                    <span class="badge bg-secondary">{{ tag.title }}</span>
+                {% endfor %}
+            </dd>
+            <dt>{{ 'label.author'|trans }}</dt>
+            <dd>{{ event.author ? event.author.username : 'N/A' }}</dd> {# Display author's username or N/A if not set #}
             <dt>{{ 'label.created_at'|trans }}</dt>
             <dd>{{ event.createdAt|date('Y/m/d H:i') }}</dd>
             <dt>{{ 'label.updated_at'|trans }}</dt>

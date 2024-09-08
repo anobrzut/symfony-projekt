@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\ContactsRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo; // Import Gedmo annotations
 
 #[ORM\Entity(repositoryClass: ContactsRepository::class)]
 class Contacts
@@ -15,9 +16,11 @@ class Contacts
     private ?int $id = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[Gedmo\Timestampable(on: 'create')]
     private ?\DateTimeInterface $createdAt = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[Gedmo\Timestampable(on: 'update')]
     private ?\DateTimeInterface $updatedAt = null;
 
     #[ORM\Column(length: 255)]
@@ -39,23 +42,9 @@ class Contacts
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeInterface $createdAt): static
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
     public function getUpdatedAt(): ?\DateTimeInterface
     {
         return $this->updatedAt;
-    }
-
-    public function setUpdatedAt(\DateTimeInterface $updatedAt): static
-    {
-        $this->updatedAt = $updatedAt;
-
-        return $this;
     }
 
     public function getPhone(): ?string
@@ -66,7 +55,6 @@ class Contacts
     public function setPhone(string $phone): static
     {
         $this->phone = $phone;
-
         return $this;
     }
 
@@ -78,7 +66,6 @@ class Contacts
     public function setName(string $name): static
     {
         $this->name = $name;
-
         return $this;
     }
 
@@ -90,7 +77,6 @@ class Contacts
     public function setDescription(?string $description): static
     {
         $this->description = $description;
-
         return $this;
     }
 }
