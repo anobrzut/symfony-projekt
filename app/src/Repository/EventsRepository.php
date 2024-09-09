@@ -1,5 +1,5 @@
 <?php
-// src/Repository/EventsRepository.php
+
 
 namespace App\Repository;
 
@@ -9,8 +9,6 @@ use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
-use Doctrine\ORM\ORMException;
-use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\NoResultException;
 use Doctrine\ORM\NonUniqueResultException;
 

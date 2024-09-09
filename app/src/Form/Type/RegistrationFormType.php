@@ -40,7 +40,6 @@ class RegistrationFormType extends AbstractType
                     'label' => 'Repeat Password',
                 ],
                 'invalid_message' => 'The password fields must match.',
-                // Remove 'mapped' => false to ensure it maps to the plainPassword property
             ]);
     }
 

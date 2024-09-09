@@ -43,7 +43,7 @@ class UserType extends AbstractType
             ])
             ->add('plainPassword', RepeatedType::class, [
                 'type' => PasswordType::class,
-                'required' => !$options['is_edit'],  // Make password required only if not editing
+                'required' => !$options['is_edit'],
                 'first_options' => [
                     'label' => 'label.password',
                     'constraints' => [
@@ -55,7 +55,7 @@ class UserType extends AbstractType
                     ],
                 ],
                 'second_options' => ['label' => 'label.repeat_password'],
-                'mapped' => false, // Do not persist plainPassword directly
+                'mapped' => false,
             ]);
     }
 
@@ -68,7 +68,7 @@ class UserType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => User::class,
-            'is_edit' => false, // Default value for is_edit, assuming it's a create form by default
+            'is_edit' => false,
         ]);
     }
 }

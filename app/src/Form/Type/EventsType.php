@@ -78,7 +78,6 @@ class EventsType extends AbstractType
                 ]
             );
 
-        // Dodajemy transformer danych dla pola tags
         $builder->get('tags')->addModelTransformer($this->tagsDataTransformer);
     }
 

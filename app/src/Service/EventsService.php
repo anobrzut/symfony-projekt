@@ -1,6 +1,5 @@
 <?php
 
-// src/Service/EventsService.php
 
 namespace App\Service;
 

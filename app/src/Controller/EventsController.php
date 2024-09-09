@@ -79,7 +79,7 @@ class EventsController extends AbstractController
         /** @var User $user */
         $user = $this->getUser();
         $event = new Events();
-        $event->setAuthor($user); // Set the current user as the author
+        $event->setAuthor($user);
 
         $form = $this->createForm(EventsType::class, $event);
         $form->handleRequest($request);

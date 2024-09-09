@@ -25,7 +25,7 @@
                 {% endfor %}
             </dd>
             <dt>{{ 'label.author'|trans }}</dt>
-            <dd>{{ event.author ? event.author.username : 'N/A' }}</dd> {# Display author's username or N/A if not set #}
+            <dd>{{ event.author ? event.author.username : 'N/A' }}</dd>
             <dt>{{ 'label.created_at'|trans }}</dt>
             <dd>{{ event.createdAt|date('Y/m/d H:i') }}</dd>
             <dt>{{ 'label.updated_at'|trans }}</dt>

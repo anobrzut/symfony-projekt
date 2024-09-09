@@ -30,7 +30,7 @@
                 <th>{{ knp_pagination_sortable(pagination, 'label.tags'|trans, 'events.tags', {}) }}</th>
                 <th>{{ knp_pagination_sortable(pagination, 'label.created_at'|trans, 'events.createdAt', {}) }}</th>
                 <th>{{ knp_pagination_sortable(pagination, 'label.updated_at'|trans, 'events.updatedAt', {}) }}</th>
-                <th>{{ knp_pagination_sortable(pagination, 'label.author'|trans, 'events.author', {}) }}</th> {# New column for author #}
+                <th>{{ knp_pagination_sortable(pagination, 'label.author'|trans, 'events.author', {}) }}</th>
                 <th>{{ 'label.actions'|trans }}</th>
             </tr>
             </thead>
@@ -49,7 +49,7 @@
                     </td>
                     <td>{{ event.createdAt|format_date('long') }}</td>
                     <td>{{ event.updatedAt|format_date('long') }}</td>
-                    <td>{{ event.author ? event.author.username : 'N/A' }}</td> {# Display author's username or N/A if not set #}
+                    <td>{{ event.author ? event.author.username : 'N/A' }}</td>
                     <td>
                         {% if is_granted('VIEW', event) %}
                             <a class="btn btn-outline-primary btn-sm" href="{{ url('event_show', {id: event.id}) }}" title="{{ 'action.show'|trans }}">

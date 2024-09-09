@@ -20,7 +20,7 @@ class TagType extends AbstractType
             ->add('slug', TextType::class, [
                 'label' => 'Slug',
                 'required' => false,
-                'disabled' => true, // Automatically generated
+                'disabled' => true,
             ]);
     }
 
