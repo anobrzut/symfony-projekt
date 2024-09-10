@@ -24,13 +24,18 @@ class EventsService implements EventsServiceInterface
     ) {
     }
 
-    public function getPaginatedList(int $page, User $user, ?Category $category = null): PaginationInterface
+    public function getPaginatedList(int $page, User $user, ?Category $category = null, bool $hidePastEvents = false): PaginationInterface
     {
         $queryBuilder = $this->eventsRepository->queryByUser($user);
 
         if ($category) {
             $queryBuilder->andWhere('events.category = :category')
                 ->setParameter('category', $category);
+        }
+
+        if ($hidePastEvents) {
+            $queryBuilder->andWhere('events.date >= :today')
+                ->setParameter('today', new \DateTimeImmutable('today'));
         }
 
         return $this->paginator->paginate($queryBuilder, $page, self::PAGINATOR_ITEMS_PER_PAGE);

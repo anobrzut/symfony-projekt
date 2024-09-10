@@ -13,6 +13,7 @@
         </a>
     </div>
 
+    {# Simple filter form with category and hide past events checkbox #}
     <form method="get" action="{{ path('event_index') }}">
         <div class="form-group">
             <label for="category">{{ 'label.category'|trans }}</label>
@@ -25,6 +26,12 @@
                 {% endfor %}
             </select>
         </div>
+
+        <div class="form-group">
+            <label for="hide_past_events">{{ 'Hide past events'|trans }}</label>
+            <input type="checkbox" name="hide_past_events" id="hide_past_events" {% if hide_past_events %}checked{% endif %}>
+        </div>
+
         <button type="submit" class="btn btn-primary">{{ 'Filter'|trans }}</button>
     </form>
 
@@ -41,6 +48,7 @@
                 <th>{{ knp_pagination_sortable(pagination, 'label.description'|trans, 'events.description') }}</th>
                 <th>{{ knp_pagination_sortable(pagination, 'label.date'|trans, 'events.date') }}</th>
                 <th>{{ knp_pagination_sortable(pagination, 'label.category'|trans, 'events.category') }}</th>
+                <th>{{ 'label.tags'|trans }}</th> {# New column for tags #}
                 <th>{{ 'label.actions'|trans }}</th>
             </tr>
             </thead>
@@ -52,6 +60,13 @@
                     <td>{{ event.description }}</td>
                     <td>{{ event.date|format_date('long') }}</td>
                     <td>{{ event.category.title }}</td>
+                    <td>
+                        {% for tag in event.tags %}
+                            <span class="badge bg-secondary">{{ tag.title }}</span>
+                        {% else %}
+                            {{ 'No tags'|trans }}
+                        {% endfor %}
+                    </td> {# Display each tag as a badge #}
                     <td>
                         <a class="btn btn-outline-primary btn-sm" href="{{ path('event_show', {id: event.id}) }}">{{ 'action.show'|trans }}</a>
 
