@@ -13,8 +13,22 @@
         </a>
     </div>
 
-    {% if pagination is defined and pagination.items|length %}
+    <form method="get" action="{{ path('event_index') }}">
+        <div class="form-group">
+            <label for="category">{{ 'label.category'|trans }}</label>
+            <select name="category" id="category" class="form-control">
+                <option value="">{{ 'label.all_categories'|trans }}</option>
+                {% for category in categories %}
+                    <option value="{{ category.id }}" {% if app.request.query.get('category') == category.id %}selected{% endif %}>
+                        {{ category.title }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">{{ 'Filter'|trans }}</button>
+    </form>
 
+    {% if pagination is defined and pagination.items|length %}
         <div class="navigation text-center">
             {{ knp_pagination_render(pagination) }}
         </div>
@@ -22,15 +36,11 @@
         <table class="table table-striped">
             <thead>
             <tr>
-                <th>{{ knp_pagination_sortable(pagination, 'label.id'|trans, 'events.id', {}) }}</th>
-                <th>{{ knp_pagination_sortable(pagination, 'label.title'|trans, 'events.title', {}) }}</th>
-                <th>{{ knp_pagination_sortable(pagination, 'label.description'|trans, 'events.description', {}) }}</th>
-                <th>{{ knp_pagination_sortable(pagination, 'label.date'|trans, 'events.date', {}) }}</th>
-                <th>{{ knp_pagination_sortable(pagination, 'label.category'|trans, 'events.category', {}) }}</th>
-                <th>{{ knp_pagination_sortable(pagination, 'label.tags'|trans, 'events.tags', {}) }}</th>
-                <th>{{ knp_pagination_sortable(pagination, 'label.created_at'|trans, 'events.createdAt', {}) }}</th>
-                <th>{{ knp_pagination_sortable(pagination, 'label.updated_at'|trans, 'events.updatedAt', {}) }}</th>
-                <th>{{ knp_pagination_sortable(pagination, 'label.author'|trans, 'events.author', {}) }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label.id'|trans, 'events.id') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label.title'|trans, 'events.title') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label.description'|trans, 'events.description') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label.date'|trans, 'events.date') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label.category'|trans, 'events.category') }}</th>
                 <th>{{ 'label.actions'|trans }}</th>
             </tr>
             </thead>
@@ -43,28 +53,14 @@
                     <td>{{ event.date|format_date('long') }}</td>
                     <td>{{ event.category.title }}</td>
                     <td>
-                        {% for tag in event.tags %}
-                            <span class="badge bg-secondary">{{ tag.title }}</span>
-                        {% endfor %}
-                    </td>
-                    <td>{{ event.createdAt|format_date('long') }}</td>
-                    <td>{{ event.updatedAt|format_date('long') }}</td>
-                    <td>{{ event.author ? event.author.username : 'N/A' }}</td>
-                    <td>
-                        {% if is_granted('VIEW', event) %}
-                            <a class="btn btn-outline-primary btn-sm" href="{{ url('event_show', {id: event.id}) }}" title="{{ 'action.show'|trans }}">
-                                <i class="bi bi-eye"></i> {{ 'action.show'|trans }}
-                            </a>
-                        {% endif %}
+                        <a class="btn btn-outline-primary btn-sm" href="{{ path('event_show', {id: event.id}) }}">{{ 'action.show'|trans }}</a>
+
                         {% if is_granted('EDIT', event) %}
-                            <a class="btn btn-outline-success btn-sm" href="{{ url('event_edit', {id: event.id}) }}" title="{{ 'action.edit'|trans }}">
-                                <i class="bi bi-pencil"></i> {{ 'action.edit'|trans }}
-                            </a>
+                            <a class="btn btn-outline-success btn-sm" href="{{ path('event_edit', {id: event.id}) }}">{{ 'action.edit'|trans }}</a>
                         {% endif %}
+
                         {% if is_granted('DELETE', event) %}
-                            <a class="btn btn-outline-danger btn-sm" href="{{ url('event_delete', {id: event.id}) }}" title="{{ 'action.delete'|trans }}" onclick="return confirm('{{ 'message.confirm_delete'|trans }}');">
-                                <i class="bi bi-trash"></i> {{ 'action.delete'|trans }}
-                            </a>
+                            <a class="btn btn-outline-danger btn-sm" href="{{ path('event_delete', {id: event.id}) }}" onclick="return confirm('{{ 'message.confirm_delete'|trans }}');">{{ 'action.delete'|trans }}</a>
                         {% endif %}
                     </td>
                 </tr>
@@ -75,7 +71,6 @@
         <div class="navigation text-center">
             {{ knp_pagination_render(pagination) }}
         </div>
-
     {% else %}
         <div class="alert alert-info">
             {{ 'message.empty_list'|trans }}

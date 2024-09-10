@@ -1,10 +1,11 @@
 <?php
 
-
 namespace App\Service;
 
+use App\Entity\Category;
 use App\Entity\Events;
 use App\Entity\User;
+use App\Repository\CategoryRepository;
 use App\Repository\EventsRepository;
 use Knp\Component\Pager\Pagination\PaginationInterface;
 use Knp\Component\Pager\PaginatorInterface;
@@ -18,17 +19,38 @@ class EventsService implements EventsServiceInterface
 
     public function __construct(
         private readonly EventsRepository $eventsRepository,
-        private readonly PaginatorInterface $paginator
+        private readonly PaginatorInterface $paginator,
+        private readonly CategoryRepository $categoryRepository
     ) {
     }
 
-    public function getPaginatedList(int $page, User $user): PaginationInterface
+    public function getPaginatedList(int $page, User $user, ?Category $category = null): PaginationInterface
     {
-        return $this->paginator->paginate(
-            $this->eventsRepository->queryByUser($user),
-            $page,
-            self::PAGINATOR_ITEMS_PER_PAGE
-        );
+        $queryBuilder = $this->eventsRepository->queryByUser($user);
+
+        if ($category) {
+            $queryBuilder->andWhere('events.category = :category')
+                ->setParameter('category', $category);
+        }
+
+        return $this->paginator->paginate($queryBuilder, $page, self::PAGINATOR_ITEMS_PER_PAGE);
+    }
+
+    public function getCategoriesForFilter(): array
+    {
+        $categories = $this->categoryRepository->findAll();
+        $choices = [];
+
+        foreach ($categories as $category) {
+            $choices[$category->getTitle()] = $category;
+        }
+
+        return $choices;
+    }
+
+    public function findCategoryById(int $categoryId): ?Category
+    {
+        return $this->categoryRepository->find($categoryId);
     }
 
     public function save(Events $events): void

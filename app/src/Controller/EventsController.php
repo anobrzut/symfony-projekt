@@ -6,175 +6,185 @@
 namespace App\Controller;
 
 use App\Entity\Events;
+use App\Entity\User;
 use App\Form\Type\EventsType;
 use App\Service\EventsServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\FormType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Contracts\Translation\TranslatorInterface;
-use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
-* Class EventsController.
-*/
+ * Class EventsController.
+ */
 #[Route('/events')]
 class EventsController extends AbstractController
 {
-/**
-* Constructor.
-*
-* @param EventsServiceInterface $eventsService Events service
-* @param TranslatorInterface    $translator    Translator
-*/
-public function __construct(
-private readonly EventsServiceInterface $eventsService,
-private readonly TranslatorInterface $translator
-) {
-}
+    /**
+     * Constructor.
+     *
+     * @param EventsServiceInterface $eventsService Events service
+     * @param TranslatorInterface    $translator    Translator
+     */
+    public function __construct(
+        private readonly EventsServiceInterface $eventsService,
+        private readonly TranslatorInterface $translator,
+    ) {
+    }
 
-/**
-* Index action.
-*
-* @param Request $request HTTP request
-*
-* @return Response HTTP response
-*/
-#[Route(name: 'event_index', methods: 'GET')]
-public function index(Request $request): Response
-{
-$page = $request->query->getInt('page', 1);
-$user = $this->getUser(); // Get the current authenticated user
+    /**
+     * Index action.
+     *
+     * @param Request $request HTTP request
+     *
+     * @return Response HTTP response
+     */
+    #[Route(name: 'event_index', methods: 'GET')]
+    public function index(Request $request): Response
+    {
+        $page = $request->query->getInt('page', 1);
+        $user = $this->getUser();
+        $categoryId = $request->query->get('category');
 
-$pagination = $this->eventsService->getPaginatedList($page, $user);
+        $category = $categoryId ? $this->eventsService->findCategoryById($categoryId) : null;
 
-return $this->render('events/index.html.twig', ['pagination' => $pagination]);
-}
+        $pagination = $this->eventsService->getPaginatedList($page, $user, $category);
+        $categories = $this->eventsService->getCategoriesForFilter();
 
-/**
-* Show action.
-*
-* @param Events $event Event entity
-*
-* @return Response HTTP response
-*/
-#[Route('/{id}', name: 'event_show', requirements: ['id' => '[1-9]\d*'], methods: 'GET')]
-#[IsGranted('VIEW', subject: 'event')]
-public function show(Events $event): Response
-{
-return $this->render('events/show.html.twig', ['event' => $event]);
-}
+        return $this->render('events/index.html.twig', [
+            'pagination' => $pagination,
+            'categories' => $categories,
+        ]);
+    }
 
-/**
-* Create action.
-*
-* @param Request $request HTTP request
-*
-* @return Response HTTP response
-*/
-#[Route('/create', name: 'event_create', methods: ['GET', 'POST'])]
-public function create(Request $request): Response
-{
-/** @var User $user */
-$user = $this->getUser();
-$event = new Events();
-$event->setAuthor($user);
+    /**
+     * Show action.
+     *
+     * @param Events $event Event entity
+     *
+     * @return Response HTTP response
+     */
+    #[Route('/{id}', name: 'event_show', requirements: ['id' => '[1-9]\d*'], methods: 'GET')]
+    #[IsGranted('VIEW', subject: 'event')]
+    public function show(Events $event): Response
+    {
+        return $this->render('events/show.html.twig', ['event' => $event]);
+    }
 
-$form = $this->createForm(EventsType::class, $event);
-$form->handleRequest($request);
+    /**
+     * Create action.
+     *
+     * @param Request $request HTTP request
+     *
+     * @return Response HTTP response
+     */
+    #[Route('/create', name: 'event_create', methods: ['GET', 'POST'])]
+    public function create(Request $request): Response
+    {
+        /** @var User $user */
+        $user = $this->getUser();
+        $event = new Events();
+        $event->setAuthor($user);
 
-if ($form->isSubmitted() && $form->isValid()) {
-$this->eventsService->save($event);
+        $form = $this->createForm(EventsType::class, $event);
+        $form->handleRequest($request);
 
-$this->addFlash(
-'success',
-$this->translator->trans('message.created_successfully')
-);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->eventsService->save($event);
 
-return $this->redirectToRoute('event_index');
-}
+            $this->addFlash(
+                'success',
+                $this->translator->trans('message.created_successfully')
+            );
 
-return $this->render('events/create.html.twig', ['form' => $form->createView()]);
-}
+            return $this->redirectToRoute('event_index');
+        }
 
-/**
-* Edit action.
-*
-* @param Request $request HTTP request
-* @param Events  $event   Event entity
-*
-* @return Response HTTP response
-*/
-#[Route('/{id}/edit', name: 'event_edit', requirements: ['id' => '[1-9]\d*'], methods: ['GET', 'PUT'])]
-#[IsGranted('EDIT', subject: 'event')]
-public function edit(Request $request, Events $event): Response
-{
-$form = $this->createForm(
-EventsType::class,
-$event,
-[
-'method' => 'PUT',
-'action' => $this->generateUrl('event_edit', ['id' => $event->getId()]),
-]
-);
-$form->handleRequest($request);
+        return $this->render('events/create.html.twig', ['form' => $form->createView()]);
+    }
 
-if ($form->isSubmitted() && $form->isValid()) {
-$this->eventsService->save($event);
+    /**
+     * Edit action.
+     *
+     * @param Request $request HTTP request
+     * @param Events  $event   Event entity
+     *
+     * @return Response HTTP response
+     */
+    #[Route('/{id}/edit', name: 'event_edit', requirements: ['id' => '[1-9]\d*'], methods: ['GET', 'PUT'])]
+    #[IsGranted('EDIT', subject: 'event')]
+    public function edit(Request $request, Events $event): Response
+    {
+        $form = $this->createForm(
+            EventsType::class,
+            $event,
+            [
+                'method' => 'PUT',
+                'action' => $this->generateUrl('event_edit', ['id' => $event->getId()]),
+            ]
+        );
+        $form->handleRequest($request);
 
-$this->addFlash(
-'success',
-$this->translator->trans('message.updated_successfully')
-);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->eventsService->save($event);
 
-return $this->redirectToRoute('event_index');
-}
+            $this->addFlash(
+                'success',
+                $this->translator->trans('message.updated_successfully')
+            );
 
-return $this->render(
-'events/edit.html.twig',
-[
-'form' => $form->createView(),
-'event' => $event,
-]
-);
-}
+            return $this->redirectToRoute('event_index');
+        }
 
-/**
-* Delete action.
-*
-* @param Request $request HTTP request
-* @param Events  $event   Event entity
-*
-* @return Response HTTP response
-*/
-#[Route('/{id}/delete', name: 'event_delete', requirements: ['id' => '[1-9]\d*'], methods: ['GET', 'DELETE'])]
-#[IsGranted('DELETE', subject: 'event')]
-public function delete(Request $request, Events $event): Response
-{
-$form = $this->createForm(FormType::class, $event, [
-'method' => 'DELETE',
-'action' => $this->generateUrl('event_delete', ['id' => $event->getId()]),
-]);
-$form->handleRequest($request);
+        return $this->render(
+            'events/edit.html.twig',
+            [
+                'form' => $form->createView(),
+                'event' => $event,
+            ]
+        );
+    }
 
-if ($form->isSubmitted() && $form->isValid()) {
-$this->eventsService->delete($event);
+    /**
+     * Delete action.
+     *
+     * @param Request $request HTTP request
+     * @param Events  $event   Event entity
+     *
+     * @return Response HTTP response
+     */
+    #[Route('/{id}/delete', name: 'event_delete', requirements: ['id' => '[1-9]\d*'], methods: ['GET', 'DELETE'])]
+    #[IsGranted('DELETE', subject: 'event')]
+    public function delete(Request $request, Events $event): Response
+    {
+        $form = $this->createForm(FormType::class, $event, [
+            'method' => 'DELETE',
+            'action' => $this->generateUrl('event_delete', ['id' => $event->getId()]),
+        ]);
+        $form->handleRequest($request);
 
-$this->addFlash(
-'success',
-$this->translator->trans('message.deleted_successfully')
-);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->eventsService->delete($event);
 
-return $this->redirectToRoute('event_index');
-}
+            $this->addFlash(
+                'success',
+                $this->translator->trans('message.deleted_successfully')
+            );
 
-return $this->render(
-'events/delete.html.twig',
-[
-'form' => $form->createView(),
-'event' => $event,
-]
-);
-}
+            return $this->redirectToRoute('event_index');
+        }
+
+        return $this->render(
+            'events/delete.html.twig',
+            [
+                'form' => $form->createView(),
+                'event' => $event,
+            ]
+        );
+    }
 }
