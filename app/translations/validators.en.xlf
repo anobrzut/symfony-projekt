@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+   <file source-language="en" target-language="en" datatype="plaintext" original="messages">
+      <body>
+         <trans-unit id="Please enter an email">
+            <source>Please enter an email</source>
+            <target>Please enter an email.</target>
+         </trans-unit>
+         <trans-unit id="The email is not a valid email.">
+            <source>The email is not a valid email.</source>
+            <target>The email is not a valid email.</target>
+         </trans-unit>
+         <trans-unit id="Please enter a password">
+            <source>Please enter a password</source>
+            <target>Please enter a password.</target>
+         </trans-unit>
+         <trans-unit id="Your password should be at least {{ limit }} characters">
+            <source>Your password should be at least {{ limit }} characters</source>
+            <target>Your password should be at least {{ limit }} characters.</target>
+         </trans-unit>
+      </body>
+   </file>
+</xliff>

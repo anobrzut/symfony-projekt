@@ -1,278 +1,278 @@
 <?xml version="1.0"?>
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
-  <file source-language="en" datatype="plaintext" original="file.ext">
+  <file source-language="pl" datatype="plaintext" original="file.ext">
     <body>
       <trans-unit id="label.actions">
         <source>label.actions</source>
-        <target>Actions</target>
+        <target>Akcje</target>
       </trans-unit>
       <trans-unit id="title.event_list">
         <source>title.event_list</source>
-        <target>Event list</target>
+        <target>Lista wydarzeń</target>
       </trans-unit>
       <trans-unit id="title.category_list">
         <source>title.category_list</source>
-        <target>Category list</target>
+        <target>Lista kategorii</target>
       </trans-unit>
       <trans-unit id="title.contacts_list">
         <source>title.contacts_list</source>
-        <target>Contacts list</target>
+        <target>Lista kontaktów</target>
       </trans-unit>
       <trans-unit id="title.category_details">
         <source>title.category_details</source>
-        <target>Category Details</target>
+        <target>Szczegóły kategorii</target>
       </trans-unit>
       <trans-unit id="title.contact_details">
         <source>title.contact_details</source>
-        <target>Contact Details</target>
+        <target>Szczegóły kontaktu</target>
       </trans-unit>
       <trans-unit id="title.event_details">
         <source>title.event_details</source>
-        <target>Event Details</target>
+        <target>Szczegóły wydarzenia</target>
       </trans-unit>
       <trans-unit id="label.description">
         <source>label.description</source>
-        <target>Description</target>
+        <target>Opis</target>
       </trans-unit>
       <trans-unit id="label.date">
         <source>label.date</source>
-        <target>Date</target>
+        <target>Data</target>
       </trans-unit>
       <trans-unit id="label.category">
         <source>label.category</source>
-        <target>Category</target>
+        <target>Kategoria</target>
       </trans-unit>
       <trans-unit id="label.created_at">
         <source>label.created_at</source>
-        <target>Created at</target>
+        <target>Utworzono</target>
       </trans-unit>
       <trans-unit id="label.updated_at">
         <source>label.updated_at</source>
-        <target>Updated at</target>
+        <target>Zaktualizowano</target>
       </trans-unit>
       <trans-unit id="label.name">
         <source>label.name</source>
-        <target>Name</target>
+        <target>Imię</target>
       </trans-unit>
       <trans-unit id="label.phone">
         <source>label.phone</source>
-        <target>Phone Number</target>
+        <target>Numer telefonu</target>
       </trans-unit>
       <trans-unit id="label.id">
         <source>label.id</source>
-        <target>Id</target>
+        <target>Identyfikator</target>
       </trans-unit>
       <trans-unit id="label.title">
         <source>label.title</source>
-        <target>Title</target>
+        <target>Tytuł</target>
       </trans-unit>
       <trans-unit id="label.content">
         <source>label.content</source>
-        <target>Content</target>
+        <target>Zawartość</target>
       </trans-unit>
       <trans-unit id="label.tags">
         <source>label.tags</source>
-        <target>Tags</target>
+        <target>Tagi</target>
       </trans-unit>
       <trans-unit id="label.all_categories">
         <source>label.all_categories</source>
-        <target>All Categories</target>
+        <target>Wszystkie kategorie</target>
       </trans-unit>
       <trans-unit id="label.current_password">
         <source>label.current_password</source>
-        <target>Current Password</target>
+        <target>Aktualne hasło</target>
       </trans-unit>
       <trans-unit id="label.new_password">
         <source>label.new_password</source>
-        <target>New Password</target>
+        <target>Nowe hasło</target>
       </trans-unit>
       <trans-unit id="label.confirm_new_password">
         <source>label.confirm_new_password</source>
-        <target>Confirm New Password</target>
+        <target>Potwierdź nowe hasło</target>
       </trans-unit>
       <trans-unit id="message.empty_list">
         <source>message.empty_list</source>
-        <target>List is empty.</target>
+        <target>Lista jest pusta.</target>
       </trans-unit>
       <trans-unit id="message.record_not_found">
         <source>message.record_not_found</source>
-        <target>Record not found.</target>
+        <target>Rekord nie został znaleziony.</target>
       </trans-unit>
       <trans-unit id="message.confirm_delete">
         <source>message.confirm_delete</source>
-        <target>Confirm to delete</target>
+        <target>Potwierdź usunięcie</target>
       </trans-unit>
       <trans-unit id="message.deleted_successfully">
         <source>message.deleted_successfully</source>
-        <target>Event was deleted successfully</target>
+        <target>Wydarzenie zostało pomyślnie usunięte</target>
       </trans-unit>
       <trans-unit id="message.created_successfully">
         <source>message.created_successfully</source>
-        <target>Event was created successfully</target>
+        <target>Wydarzenie zostało pomyślnie utworzone</target>
       </trans-unit>
       <trans-unit id="message.registration_success">
         <source>message.registration_success</source>
-        <target>User was registered successfully</target>
+        <target>Użytkownik został pomyślnie zarejestrowany</target>
       </trans-unit>
       <trans-unit id="title.record_list">
         <source>title.record_list</source>
-        <target>Records list</target>
+        <target>Lista rekordów</target>
       </trans-unit>
       <trans-unit id="title.record_view">
         <source>title.record_view</source>
-        <target>Record view #%id%</target>
+        <target>Widok rekordu #%id%</target>
       </trans-unit>
       <trans-unit id="title.task_details">
         <source>title.task_details</source>
-        <target>Task details #%id%</target>
+        <target>Szczegóły zadania #%id%</target>
       </trans-unit>
       <trans-unit id="title.event_edit">
         <source>title.event_edit</source>
-        <target>Event #%id%</target>
+        <target>Edytuj wydarzenie #%id%</target>
       </trans-unit>
       <trans-unit id="title.event_delete">
         <source>title.event_delete</source>
-        <target>Do you want to delete Event #%id%?</target>
+        <target>Czy chcesz usunąć wydarzenie #%id%?</target>
       </trans-unit>
       <trans-unit id="title.event_create">
         <source>title.event_create</source>
-        <target>Create Event</target>
+        <target>Utwórz wydarzenie</target>
       </trans-unit>
       <trans-unit id="title.change_password">
         <source>title.change_password</source>
-        <target>Change Password</target>
+        <target>Zmień hasło</target>
       </trans-unit>
       <trans-unit id="title.category_create">
         <source>title.category_create</source>
-        <target>Create Category</target>
+        <target>Utwórz kategorię</target>
       </trans-unit>
       <trans-unit id="title.contacts_create">
         <source>title.contacts_create</source>
-        <target>Create Contact</target>
+        <target>Utwórz kontakt</target>
       </trans-unit>
       <trans-unit id="title.tag_list">
         <source>title.tag_list</source>
-        <target>Tags List</target>
+        <target>Lista tagów</target>
       </trans-unit>
       <trans-unit id="action.show">
         <source>action.show</source>
-        <target>Show</target>
+        <target>Pokaż</target>
       </trans-unit>
       <trans-unit id="action.back_to_list">
         <source>action.back_to_list</source>
-        <target>Go Back</target>
+        <target>Powrót</target>
       </trans-unit>
       <trans-unit id="action.add_new">
         <source>action.add_new</source>
-        <target>Add New</target>
+        <target>Dodaj nowe</target>
       </trans-unit>
       <trans-unit id="action.edit">
         <source>action.edit</source>
-        <target>Edit</target>
+        <target>Edytuj</target>
       </trans-unit>
       <trans-unit id="action.delete">
         <source>action.delete</source>
-        <target>Delete</target>
+        <target>Usuń</target>
       </trans-unit>
       <trans-unit id="action.save">
         <source>action.save</source>
-        <target>Save</target>
+        <target>Zapisz</target>
       </trans-unit>
       <trans-unit id="action.login">
         <source>action.login</source>
-        <target>Log in</target>
+        <target>Zaloguj się</target>
       </trans-unit>
       <trans-unit id="action.logout">
         <source>action.logout</source>
-        <target>Log out</target>
+        <target>Wyloguj się</target>
       </trans-unit>
       <trans-unit id="action.change_password">
         <source>action.change_password</source>
-        <target>Change Password</target>
+        <target>Zmień hasło</target>
       </trans-unit>
       <trans-unit id="action.event_index">
         <source>action.event_index</source>
-        <target>Events</target>
+        <target>Wydarzenia</target>
       </trans-unit>
       <trans-unit id="action.contacts_index">
         <source>action.contacts_index</source>
-        <target>Contacts</target>
+        <target>Kontakty</target>
       </trans-unit>
       <trans-unit id="action.tag_index">
         <source>action.tag_index</source>
-        <target>Tags</target>
+        <target>Tagi</target>
       </trans-unit>
       <trans-unit id="action.category_index">
         <source>action.category_index</source>
-        <target>Categories</target>
+        <target>Kategorie</target>
       </trans-unit>
       <trans-unit id="action.manage_users">
         <source>action.manage_users</source>
-        <target>Manage Users</target>
+        <target>Zarządzaj użytkownikami</target>
       </trans-unit>
       <trans-unit id="message.category_contains_events">
         <source>message.category_contains_events</source>
-        <target>This category contains events and cannot be deleted.</target>
+        <target>Ta kategoria zawiera wydarzenia i nie może zostać usunięta.</target>
       </trans-unit>
       <trans-unit id="message.updated_successfully">
         <source>message.updated_successfully</source>
-        <target>Updated successfully</target>
+        <target>Zaktualizowano pomyślnie</target>
       </trans-unit>
       <trans-unit id="message.user_not_authenticated">
         <source>message.user_not_authenticated</source>
-        <target>User is not authenticated</target>
+        <target>Użytkownik nie jest zalogowany</target>
       </trans-unit>
       <trans-unit id="message.invalid_current_password">
         <source>message.invalid_current_password</source>
-        <target>Invalid current password</target>
+        <target>Nieprawidłowe aktualne hasło</target>
       </trans-unit>
       <trans-unit id="message.password_changed_successfully">
         <source>message.password_changed_successfully</source>
-        <target>Password changed successfully</target>
+        <target>Hasło zmieniono pomyślnie</target>
       </trans-unit>
       <trans-unit id="message.user_updated_successfully">
         <source>message.user_updated_successfully</source>
-        <target>User updated successfully</target>
+        <target>Użytkownik zaktualizowany pomyślnie</target>
       </trans-unit>
       <trans-unit id="message.user_deleted_successfully">
         <source>message.user_deleted_successfully</source>
-        <target>User deleted successfully</target>
+        <target>Użytkownik usunięty pomyślnie</target>
       </trans-unit>
       <trans-unit id="title.category_edit">
         <source>title.category_edit</source>
-        <target>Edit Category</target>
+        <target>Edytuj kategorię</target>
       </trans-unit>
       <trans-unit id="title.category_delete">
         <source>title.category_delete</source>
-        <target>Delete Category</target>
+        <target>Usuń kategorię</target>
       </trans-unit>
       <trans-unit id="message.form_error">
         <source>message.form_error</source>
-        <target>There was an error with the form</target>
+        <target>Wystąpił błąd w formularzu</target>
       </trans-unit>
       <trans-unit id="title.contacts_edit">
         <source>title.contacts_edit</source>
-        <target>Edit Contact</target>
+        <target>Edytuj kontakt</target>
       </trans-unit>
       <trans-unit id="title.contacts_delete">
         <source>title.contacts_delete</source>
-        <target>Delete Contact</target>
+        <target>Usuń kontakt</target>
       </trans-unit>
       <trans-unit id="message.no_tags">
         <source>No tags</source>
-        <target>No tags</target>
+        <target>Brak tagów</target>
       </trans-unit>
       <trans-unit id="title.user_edit">
         <source>title.user_edit</source>
-        <target>Edit User</target>
+        <target>Edytuj użytkownika</target>
       </trans-unit>
       <trans-unit id="title.user_delete">
         <source>title.user_delete</source>
-        <target>Delete User</target>
+        <target>Usuń użytkownika</target>
       </trans-unit>
       <trans-unit id="title.user_list">
         <source>title.user_list</source>
-        <target>User List</target>
+        <target>Lista użytkowników</target>
       </trans-unit>
       <trans-unit id="label.email">
         <source>label.email</source>
@@ -280,31 +280,31 @@
       </trans-unit>
       <trans-unit id="label.roles">
         <source>label.roles</source>
-        <target>Roles</target>
+        <target>Role</target>
       </trans-unit>
       <trans-unit id="title.user_create">
         <source>title.user_create</source>
-        <target>Create User</target>
+        <target>Utwórz użytkownika</target>
       </trans-unit>
       <trans-unit id="title.change_password_for_user">
         <source>title.change_password_for_user</source>
-        <target>Change Password for User</target>
+        <target>Zmień hasło dla użytkownika</target>
       </trans-unit>
       <trans-unit id="label.hide_past_events">
         <source>Hide past events</source>
-        <target>Hide past events</target>
+        <target>Ukryj przeszłe wydarzenia</target>
       </trans-unit>
       <trans-unit id="label.filter">
         <source>Filter</source>
-        <target>Filter</target>
+        <target>Filtruj</target>
       </trans-unit>
       <trans-unit id="label.author">
         <source>label.author</source>
-        <target>Author</target>
+        <target>Autor</target>
       </trans-unit>
       <trans-unit id="title.tag_create">
           <source>title.tag_create</source>
-          <target>Create Tag</target>
+          <target>Utwórz Tag</target>
       </trans-unit>
     </body>
   </file>
