@@ -1,26 +1,22 @@
 <?php
-/**
- * Contacts service interface.
- */
 
 namespace App\Service;
 
 use App\Entity\Contacts;
+use App\Entity\User;
 use Knp\Component\Pager\Pagination\PaginationInterface;
 
-/**
- * Interface ContactsServiceInterface.
- */
 interface ContactsServiceInterface
 {
     /**
      * Get paginated list.
      *
      * @param int $page Page number
+     * @param User $user User entity
      *
-     * @return PaginationInterface<string, mixed> Paginated list
+     * @return PaginationInterface Paginated list
      */
-    public function getPaginatedList(int $page): PaginationInterface;
+    public function getPaginatedList(int $page, User $user): PaginationInterface;
 
     /**
      * Save entity.

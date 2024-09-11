@@ -1,29 +1,40 @@
 <?php
-/**
- * Contacts fixtures.
- */
 
 namespace App\DataFixtures;
 
 use App\Entity\Contacts;
+use App\Entity\User;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 
 /**
  * Class ContactsFixtures.
  */
-class ContactsFixtures extends AbstractBaseFixtures
+class ContactsFixtures extends AbstractBaseFixtures implements DependentFixtureInterface
 {
     protected function loadData(): void
     {
-        for ($i = 0; $i < 10; ++$i) {
+        $this->createMany(10, 'contacts', function () {
             $contact = new Contacts();
             $contact->setName($this->faker->name);
             $contact->setPhone($this->generateNineDigitPhoneNumber());
             $contact->setDescription($this->faker->sentence);
-            $this->manager->persist($contact);
-        }
+
+            /** @var User $user */
+            $user = $this->getRandomReference('users');
+            $contact->setAuthor($user);
+
+            return $contact;
+        });
 
         $this->manager->flush();
+    }
+
+    public function getDependencies(): array
+    {
+        return [
+            UserFixtures::class,
+        ];
     }
 
     /**

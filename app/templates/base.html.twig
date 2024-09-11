@@ -18,7 +18,11 @@
         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
             <div class="d-flex justify-content-end">
                 <span class="me-3">{{ app.user.email }}</span>
+                <a href="{{ path('event_index') }}" class="btn btn-outline-primary me-2">{{ 'action.event_index'|trans }}</a>
+                <a href="{{ path('contacts_index') }}" class="btn btn-outline-primary me-2">{{ 'action.contacts_index'|trans }}</a>
                 {% if is_granted('ROLE_ADMIN') %}
+                    <a href="{{ path('tag_index') }}" class="btn btn-outline-primary me-2">{{ 'action.tag_index'|trans }}</a>
+                    <a href="{{ path('category_index') }}" class="btn btn-outline-primary me-2">{{ 'action.category_index'|trans }}</a>
                     <a href="{{ path('user_index') }}" class="btn btn-outline-primary me-2">{{ 'action.manage_users'|trans }}</a>
                 {% endif %}
                 <a href="{{ path('user_change_password') }}" class="btn btn-outline-warning me-2">{{ 'action.change_password'|trans }}</a>
