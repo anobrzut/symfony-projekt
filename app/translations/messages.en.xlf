@@ -146,6 +146,14 @@
                                   <source>title.category_create</source>
                                   <target>Create Category</target>
                               </trans-unit>
+      <trans-unit id="title.contacts_create">
+                                        <source>title.contacts_create</source>
+                                        <target>Create Contact</target>
+                                    </trans-unit>
+      <trans-unit id="title.tag_list">
+                                              <source>title.tag_list</source>
+                                              <target>Tags List</target>
+                                          </trans-unit>
       <trans-unit id="action.show">
                 <source>action.show</source>
                 <target>Show</target>

@@ -16,6 +16,12 @@
             <dd>{{ contact.phone }}</dd>
             <dt>{{ 'label.description'|trans }}</dt>
             <dd>{{ contact.description }}</dd>
+            <dt>{{ 'label.tags'|trans }}</dt>
+            <dd>
+                {% for tag in contact.tags %}
+                    {{ tag.title }}{% if not loop.last %}, {% endif %}
+                {% endfor %}
+            </dd>
             <dt>{{ 'label.created_at'|trans }}</dt>
             <dd>{{ contact.createdAt|date('Y/m/d H:i') }}</dd>
             <dt>{{ 'label.updated_at'|trans }}</dt>

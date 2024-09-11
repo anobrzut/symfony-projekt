@@ -26,6 +26,7 @@
                 <th>{{ knp_pagination_sortable(pagination, 'label.phone'|trans, 'contacts.phone') }}</th>
                 <th>{{ knp_pagination_sortable(pagination, 'label.created_at'|trans, 'contacts.createdAt') }}</th>
                 <th>{{ knp_pagination_sortable(pagination, 'label.updated_at'|trans, 'contacts.updatedAt') }}</th>
+                <th>{{ 'label.tags'|trans }}</th>
                 <th>{{ 'label.actions'|trans }}</th>
             </tr>
             </thead>
@@ -37,6 +38,13 @@
                     <td>{{ contact.phone }}</td>
                     <td>{{ contact.createdAt|format_date('long') }}</td>
                     <td>{{ contact.updatedAt|format_date('long') }}</td>
+                    <td>
+                        {% for tag in contact.tags %}
+                            <span class="badge bg-secondary">{{ tag.title }}</span>
+                        {% else %}
+                            {{ 'No tags'|trans }}
+                        {% endfor %}
+                    </td>
                     <td>
                         <a href="{{ url('contacts_show', {id: contact.id}) }}" class="btn btn-info btn-sm" title="{{ 'action.show'|trans }}">
                             <i class="bi bi-eye"></i> {{ 'action.show'|trans }}

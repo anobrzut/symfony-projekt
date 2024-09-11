@@ -7,6 +7,8 @@ use App\Entity\User;
 use App\Repository\ContactsRepository;
 use Knp\Component\Pager\Pagination\PaginationInterface;
 use Knp\Component\Pager\PaginatorInterface;
+use App\Entity\Tag;
+use App\Service\TagServiceInterface;
 
 class ContactsService implements ContactsServiceInterface
 {
@@ -14,7 +16,8 @@ class ContactsService implements ContactsServiceInterface
 
     public function __construct(
         private readonly ContactsRepository $contactsRepository,
-        private readonly PaginatorInterface $paginator
+        private readonly PaginatorInterface $paginator,
+        private readonly TagServiceInterface $tagService
     ) {
     }
 
@@ -35,13 +38,65 @@ class ContactsService implements ContactsServiceInterface
         );
     }
 
+    /**
+     * Save a contact.
+     *
+     * @param Contacts $contacts Contacts entity
+     */
     public function save(Contacts $contacts): void
     {
         $this->contactsRepository->save($contacts);
     }
 
+    /**
+     * Delete a contact.
+     *
+     * @param Contacts $contacts Contacts entity
+     */
     public function delete(Contacts $contacts): void
     {
         $this->contactsRepository->delete($contacts);
+    }
+
+    /**
+     * Add tags to a contact.
+     *
+     * @param Contacts $contacts Contacts entity
+     * @param array<int, string> $tags Array of tag titles
+     */
+    public function addTags(Contacts $contacts, array $tags): void
+    {
+        foreach ($tags as $tagTitle) {
+            $tag = $this->tagService->findOneByTitle($tagTitle);
+
+            if (null === $tag) {
+                $tag = new Tag();
+                $tag->setTitle($tagTitle);
+                $this->tagService->save($tag);
+            }
+
+            $contacts->addTag($tag);
+        }
+
+        $this->contactsRepository->save($contacts);
+    }
+
+    /**
+     * Remove tags from a contact.
+     *
+     * @param Contacts $contacts Contacts entity
+     * @param array<int, string> $tags Array of tag titles
+     */
+    public function removeTags(Contacts $contacts, array $tags): void
+    {
+        foreach ($tags as $tagTitle) {
+            $tag = $this->tagService->findOneByTitle($tagTitle);
+
+            if (null !== $tag) {
+                $contacts->removeTag($tag);
+            }
+        }
+
+        $this->contactsRepository->save($contacts);
     }
 }
