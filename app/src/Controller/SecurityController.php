@@ -1,4 +1,9 @@
 <?php
+/**
+ * Projekt Symfony - Zarzadzanie Informacja Osobista
+ *
+ * (c) Anna Obrzut 2024 <ania.obrzut@student.uj.edu.pl>
+ */
 
 namespace App\Controller;
 
@@ -14,9 +19,18 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 /**
  * Class SecurityController.
+ *
+ * Handles login, logout, and registration functionality.
  */
 class SecurityController extends AbstractController
 {
+    /**
+     * Login action.
+     *
+     * @param AuthenticationUtils $authenticationUtils Provides utility methods to get authentication information
+     *
+     * @return Response Renders the login page
+     */
     #[Route(path: '/login', name: 'app_login')]
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
@@ -29,12 +43,28 @@ class SecurityController extends AbstractController
         ]);
     }
 
+    /**
+     * Logout action.
+     *
+     * This method will be intercepted by the Symfony firewall for logout.
+     *
+     * @throws \LogicException This method should never be executed directly.
+     */
     #[Route(path: '/logout', name: 'app_logout')]
     public function logout(): void
     {
         throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
     }
 
+    /**
+     * Register action.
+     *
+     * @param Request                    $request              The current request
+     * @param RegistrationServiceInterface $registrationService The registration service
+     * @param TranslatorInterface         $translator           The translator service
+     *
+     * @return Response Renders the registration form and handles the submission
+     */
     #[Route(path: '/register', name: 'app_register')]
     public function register(
         Request $request,

@@ -1,9 +1,17 @@
 <?php
+/**
+ * Projekt Symfony - Zarzadzanie Informacja Osobista
+ *
+ * (c) Anna Obrzut 2024 <ania.obrzut@student.uj.edu.pl>
+ */
 
 namespace App\Repository;
 
 use App\Entity\Category;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\Exception\ORMException as DoctrineORMException;
+use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -19,13 +27,6 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class CategoryRepository extends ServiceEntityRepository
 {
-    /**
-     * Items per page.
-     *
-     * @constant int
-     */
-    public const PAGINATOR_ITEMS_PER_PAGE = 5;
-
     /**
      * Constructor.
      *
@@ -51,11 +52,29 @@ class CategoryRepository extends ServiceEntityRepository
      * Save entity.
      *
      * @param Category $category Category entity
+     *
+     * @throws DoctrineORMException If there is a database-related issue
+     * @throws OptimisticLockException If there is an optimistic lock failure
      */
     public function save(Category $category): void
     {
         assert($this->_em instanceof EntityManager);
         $this->_em->persist($category);
+        $this->_em->flush();
+    }
+
+    /**
+     * Delete entity.
+     *
+     * @param Category $category Category entity
+     *
+     * @throws DoctrineORMException If there is a database-related issue
+     * @throws OptimisticLockException If there is an optimistic lock failure
+     */
+    public function delete(Category $category): void
+    {
+        assert($this->_em instanceof EntityManager);
+        $this->_em->remove($category);
         $this->_em->flush();
     }
 
@@ -69,19 +88,5 @@ class CategoryRepository extends ServiceEntityRepository
     private function getOrCreateQueryBuilder(QueryBuilder $queryBuilder = null): QueryBuilder
     {
         return $queryBuilder ?? $this->createQueryBuilder('category');
-    }
-    /**
-     * Delete entity.
-     *
-     * @param Category $category Category entity
-     *
-     * @throws ORMException
-     * @throws OptimisticLockException
-     */
-    public function delete(Category $category): void
-    {
-        assert($this->_em instanceof EntityManager);
-        $this->_em->remove($category);
-        $this->_em->flush();
     }
 }

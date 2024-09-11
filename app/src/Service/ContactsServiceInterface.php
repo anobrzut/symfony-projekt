@@ -1,4 +1,9 @@
 <?php
+/**
+ * Projekt Symfony - Zarzadzanie Informacja Osobista
+ *
+ * (c) Anna Obrzut 2024 <ania.obrzut@student.uj.edu.pl>
+ */
 
 namespace App\Service;
 
@@ -6,12 +11,17 @@ use App\Entity\Contacts;
 use App\Entity\User;
 use Knp\Component\Pager\Pagination\PaginationInterface;
 
+/**
+ * Interface ContactsServiceInterface.
+ *
+ * Provides methods to manage contacts, including pagination, saving, deleting, and managing tags.
+ */
 interface ContactsServiceInterface
 {
     /**
      * Get paginated list of contacts for a specific user.
      *
-     * @param int $page Page number
+     * @param int  $page Page number
      * @param User $user User entity
      *
      * @return PaginationInterface Paginated list
@@ -35,16 +45,16 @@ interface ContactsServiceInterface
     /**
      * Add tags to a contact.
      *
-     * @param Contacts $contacts Contacts entity
-     * @param array<int, string> $tags Array of tag titles
+     * @param Contacts           $contacts Contacts entity
+     * @param array<int, string> $tags     Array of tag titles
      */
     public function addTags(Contacts $contacts, array $tags): void;
 
     /**
      * Remove tags from a contact.
      *
-     * @param Contacts $contacts Contacts entity
-     * @param array<int, string> $tags Array of tag titles
+     * @param Contacts           $contacts Contacts entity
+     * @param array<int, string> $tags     Array of tag titles
      */
     public function removeTags(Contacts $contacts, array $tags): void;
 }

@@ -1,4 +1,9 @@
 <?php
+/**
+ * Projekt Symfony - Zarzadzanie Informacja Osobista
+ *
+ * (c) Anna Obrzut 2024 <ania.obrzut@student.uj.edu.pl>
+ */
 
 namespace App\Form\Type;
 
@@ -13,8 +18,19 @@ use Symfony\Component\Validator\Constraints\Email;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
+/**
+ * Class RegistrationFormType.
+ *
+ * This form type is used for user registration, allowing users to provide an email and password.
+ */
 class RegistrationFormType extends AbstractType
 {
+    /**
+     * Builds the user registration form.
+     *
+     * @param FormBuilderInterface $builder The form builder
+     * @param array $options Additional options for the form
+     */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -43,6 +59,11 @@ class RegistrationFormType extends AbstractType
             ]);
     }
 
+    /**
+     * Configures the options for this form type.
+     *
+     * @param OptionsResolver $resolver The options resolver
+     */
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([

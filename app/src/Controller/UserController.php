@@ -1,4 +1,9 @@
 <?php
+/**
+ * Projekt Symfony - Zarzadzanie Informacja Osobista
+ *
+ * (c) Anna Obrzut 2024 <ania.obrzut@student.uj.edu.pl>
+ */
 
 namespace App\Controller;
 
@@ -6,7 +11,6 @@ use App\Entity\User;
 use App\Form\Type\ChangePasswordType;
 use App\Form\Type\UserType;
 use App\Service\UserServiceInterface;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,6 +23,8 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 /**
  * Class UserController.
+ *
+ * This controller manages user-related actions such as changing passwords, editing user data, and listing users (admin only).
  */
 #[Route('/user')]
 class UserController extends AbstractController
@@ -27,6 +33,13 @@ class UserController extends AbstractController
     private TranslatorInterface $translator;
     private UserPasswordHasherInterface $passwordHasher;
 
+    /**
+     * Constructor.
+     *
+     * @param UserServiceInterface          $userService    The user service interface
+     * @param TranslatorInterface           $translator     The translator service
+     * @param UserPasswordHasherInterface   $passwordHasher The password hasher
+     */
     public function __construct(UserServiceInterface $userService, TranslatorInterface $translator, UserPasswordHasherInterface $passwordHasher)
     {
         $this->userService = $userService;
@@ -36,6 +49,11 @@ class UserController extends AbstractController
 
     /**
      * Change password action for regular users.
+     *
+     * @param Request          $request  The current request
+     * @param ManagerRegistry  $doctrine The doctrine manager registry
+     *
+     * @return Response The response for the password change action
      */
     #[Route('/change-password', name: 'user_change_password')]
     public function changePassword(Request $request, ManagerRegistry $doctrine): Response
@@ -61,6 +79,7 @@ class UserController extends AbstractController
                 $doctrine->getManager()->flush();
 
                 $this->addFlash('success', $this->translator->trans('message.password_changed_successfully'));
+
                 return $this->redirectToRoute('app_logout');
             }
         }
@@ -72,6 +91,12 @@ class UserController extends AbstractController
 
     /**
      * Change password for a specific user (Admin only).
+     *
+     * @param Request          $request  The current request
+     * @param User             $user     The user entity
+     * @param ManagerRegistry  $doctrine The doctrine manager registry
+     *
+     * @return Response The response for the admin password change action
      */
     #[Route('/admin/{id}/change-password', name: 'user_change_password_admin', requirements: ['id' => '[1-9]\d*'], methods: ['GET', 'POST'])]
     #[IsGranted('ROLE_ADMIN')]
@@ -99,6 +124,10 @@ class UserController extends AbstractController
 
     /**
      * User list for admins.
+     *
+     * @param Request $request The current request
+     *
+     * @return Response The response with the user list
      */
     #[Route('/admin', name: 'user_index', methods: 'GET')]
     #[IsGranted('ROLE_ADMIN')]
@@ -112,6 +141,10 @@ class UserController extends AbstractController
 
     /**
      * Show user details for admins.
+     *
+     * @param User $user The user entity
+     *
+     * @return Response The response for the user details view
      */
     #[Route('/admin/{id}', name: 'user_show', requirements: ['id' => '[1-9]\d*'], methods: 'GET')]
     #[IsGranted('ROLE_ADMIN')]
@@ -122,6 +155,11 @@ class UserController extends AbstractController
 
     /**
      * Edit an existing user (Admin only).
+     *
+     * @param Request $request The current request
+     * @param User    $user    The user entity
+     *
+     * @return Response The response for the user edit action
      */
     #[Route('/admin/{id}/edit', name: 'user_edit', requirements: ['id' => '[1-9]\d*'], methods: ['GET', 'POST'])]
     #[IsGranted('ROLE_ADMIN')]
@@ -148,6 +186,11 @@ class UserController extends AbstractController
 
     /**
      * Delete a user (Admin only).
+     *
+     * @param Request $request The current request
+     * @param User    $user    The user entity
+     *
+     * @return Response The response for the user delete action
      */
     #[Route('/admin/{id}/delete', name: 'user_delete', requirements: ['id' => '[1-9]\d*'], methods: ['GET', 'DELETE'])]
     #[IsGranted('ROLE_ADMIN')]

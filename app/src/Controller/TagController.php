@@ -1,4 +1,9 @@
 <?php
+/**
+ * Projekt Symfony - Zarzadzanie Informacja Osobista
+ *
+ * (c) Anna Obrzut 2024 <ania.obrzut@student.uj.edu.pl>
+ */
 
 namespace App\Controller;
 
@@ -9,21 +14,35 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Contracts\Translation\TranslatorInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * Class TagController.
+ *
+ * Handles CRUD operations for tags.
  */
 #[Route('/tag')]
 #[IsGranted('ROLE_ADMIN')]
 class TagController extends AbstractController
 {
-    public function __construct(
-        private readonly TagServiceInterface $tagService,
-        private readonly TranslatorInterface $translator
-    ) {}
+    /**
+     * Constructor.
+     *
+     * @param TagServiceInterface   $tagService  The tag service
+     * @param TranslatorInterface   $translator  The translator service
+     */
+    public function __construct(private readonly TagServiceInterface $tagService, private readonly TranslatorInterface $translator)
+    {
+    }
 
+    /**
+     * Displays a paginated list of tags.
+     *
+     * @param Request $request The current request
+     *
+     * @return Response The response containing the tag list
+     */
     #[Route(name: 'tag_index', methods: 'GET')]
     public function index(Request $request): Response
     {
@@ -33,6 +52,13 @@ class TagController extends AbstractController
         return $this->render('tag/index.html.twig', ['pagination' => $pagination]);
     }
 
+    /**
+     * Creates a new tag.
+     *
+     * @param Request $request The current request
+     *
+     * @return Response The response for the tag creation form
+     */
     #[Route('/create', name: 'tag_create', methods: ['GET', 'POST'])]
     public function create(Request $request): Response
     {
@@ -42,6 +68,7 @@ class TagController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->tagService->save($tag);
+
             return $this->redirectToRoute('tag_index');
         }
 
@@ -50,12 +77,27 @@ class TagController extends AbstractController
         ]);
     }
 
+    /**
+     * Displays a tag.
+     *
+     * @param Tag $tag The tag entity
+     *
+     * @return Response The response showing the tag details
+     */
     #[Route('/{id}', name: 'tag_show', requirements: ['id' => '\d+'], methods: 'GET')]
     public function show(Tag $tag): Response
     {
         return $this->render('tag/show.html.twig', ['tag' => $tag]);
     }
 
+    /**
+     * Edits an existing tag.
+     *
+     * @param Request $request The current request
+     * @param Tag     $tag     The tag entity
+     *
+     * @return Response The response for the tag edit form
+     */
     #[Route('/{id}/edit', name: 'tag_edit', requirements: ['id' => '\d+'], methods: ['GET', 'PUT'])]
     public function edit(Request $request, Tag $tag): Response
     {
@@ -67,6 +109,7 @@ class TagController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->tagService->save($tag);
+
             return $this->redirectToRoute('tag_index');
         }
 
@@ -76,6 +119,14 @@ class TagController extends AbstractController
         ]);
     }
 
+    /**
+     * Deletes a tag.
+     *
+     * @param Request $request The current request
+     * @param Tag     $tag     The tag entity
+     *
+     * @return Response The response for the tag deletion form
+     */
     #[Route('/{id}/delete', name: 'tag_delete', requirements: ['id' => '\d+'], methods: ['GET', 'DELETE'])]
     public function delete(Request $request, Tag $tag): Response
     {
@@ -88,6 +139,7 @@ class TagController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->tagService->delete($tag);
+
             return $this->redirectToRoute('tag_index');
         }
 

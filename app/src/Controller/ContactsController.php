@@ -1,4 +1,9 @@
 <?php
+/**
+ * Projekt Symfony - Zarzadzanie Informacja Osobista
+ *
+ * (c) Anna Obrzut 2024 <ania.obrzut@student.uj.edu.pl>
+ */
 
 namespace App\Controller;
 
@@ -11,16 +16,33 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * Class ContactsController.
+ *
+ * Handles CRUD operations for contacts.
+ */
 #[Route('/contacts')]
 class ContactsController extends AbstractController
 {
     private ContactsServiceInterface $contactsService;
 
+    /**
+     * Constructor.
+     *
+     * @param ContactsServiceInterface $contactsService The contacts service
+     */
     public function __construct(ContactsServiceInterface $contactsService)
     {
         $this->contactsService = $contactsService;
     }
 
+    /**
+     * Display a list of contacts for the logged-in user.
+     *
+     * @param Request $request The current request
+     *
+     * @return Response The response with the contacts list
+     */
     #[Route(name: 'contacts_index', methods: 'GET')]
     public function index(Request $request): Response
     {
@@ -38,12 +60,26 @@ class ContactsController extends AbstractController
         return $this->render('contacts/index.html.twig', ['pagination' => $pagination]);
     }
 
+    /**
+     * Show a specific contact.
+     *
+     * @param Contacts $contact The contact entity
+     *
+     * @return Response The response with the contact details
+     */
     #[Route('/{id}', name: 'contacts_show', requirements: ['id' => '[1-9]\d*'], methods: 'GET')]
     public function show(Contacts $contact): Response
     {
         return $this->render('contacts/show.html.twig', ['contact' => $contact]);
     }
 
+    /**
+     * Create a new contact.
+     *
+     * @param Request $request The current request
+     *
+     * @return Response The response for the contact creation form
+     */
     #[Route('/create', name: 'contacts_create', methods: ['GET', 'POST'])]
     public function create(Request $request): Response
     {
@@ -72,6 +108,14 @@ class ContactsController extends AbstractController
         ]);
     }
 
+    /**
+     * Edit an existing contact.
+     *
+     * @param Request  $request The current request
+     * @param Contacts $contact The contact entity to edit
+     *
+     * @return Response The response for the contact edit form
+     */
     #[Route('/{id}/edit', name: 'contacts_edit', requirements: ['id' => '[1-9]\d*'], methods: ['GET', 'PUT'])]
     public function edit(Request $request, Contacts $contact): Response
     {
@@ -95,6 +139,14 @@ class ContactsController extends AbstractController
         ]);
     }
 
+    /**
+     * Delete a contact.
+     *
+     * @param Request  $request The current request
+     * @param Contacts $contact The contact entity to delete
+     *
+     * @return Response The response for the contact delete form
+     */
     #[Route('/{id}/delete', name: 'contacts_delete', requirements: ['id' => '[1-9]\d*'], methods: ['GET', 'DELETE'])]
     public function delete(Request $request, Contacts $contact): Response
     {

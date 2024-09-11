@@ -1,17 +1,28 @@
 <?php
+/**
+ * Projekt Symfony - Zarzadzanie Informacja Osobista
+ *
+ * (c) Anna Obrzut 2024 <ania.obrzut@student.uj.edu.pl>
+ */
 
 namespace App\DataFixtures;
 
 use App\Entity\Contacts;
 use App\Entity\User;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
-use Doctrine\Persistence\ObjectManager;
 
 /**
  * Class ContactsFixtures.
+ *
+ * This class is responsible for loading contact data fixtures, associating each contact with a user.
  */
 class ContactsFixtures extends AbstractBaseFixtures implements DependentFixtureInterface
 {
+    /**
+     * Loads contact data into the database.
+     *
+     * This method creates 10 contact entities with random names, phone numbers, descriptions, and assigns a random user as the author.
+     */
     protected function loadData(): void
     {
         $this->createMany(10, 'contacts', function () {
@@ -30,6 +41,13 @@ class ContactsFixtures extends AbstractBaseFixtures implements DependentFixtureI
         $this->manager->flush();
     }
 
+    /**
+     * Returns the dependencies for this fixture.
+     *
+     * This fixture depends on the UserFixtures to ensure that contacts can reference valid users.
+     *
+     * @return array The list of dependent fixture classes
+     */
     public function getDependencies(): array
     {
         return [
@@ -44,6 +62,6 @@ class ContactsFixtures extends AbstractBaseFixtures implements DependentFixtureI
      */
     private function generateNineDigitPhoneNumber(): int
     {
-        return (int) $this->faker->numberBetween(100000000, 999999999);
+        return $this->faker->numberBetween(100000000, 999999999);
     }
 }

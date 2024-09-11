@@ -1,6 +1,8 @@
 <?php
 /**
- * Base fixtures.
+ * Projekt Symfony - Zarzadzanie Informacja Osobista
+ *
+ * (c) Anna Obrzut 2024 <ania.obrzut@student.uj.edu.pl>
  */
 
 namespace App\DataFixtures;
@@ -87,7 +89,7 @@ abstract class AbstractBaseFixtures extends Fixture
             $this->referencesIndex[$groupName] = [];
 
             foreach ($this->referenceRepository->getReferences() as $key => $ref) {
-                if (str_starts_with($key, $groupName . '_')) {
+                if (str_starts_with($key, $groupName.'_')) {
                     $this->referencesIndex[$groupName][] = $key;
                 }
             }

@@ -1,6 +1,8 @@
 <?php
 /**
- * Category service.
+ * Projekt Symfony - Zarzadzanie Informacja Osobista
+ *
+ * (c) Anna Obrzut 2024 <ania.obrzut@student.uj.edu.pl>
  */
 
 namespace App\Service;
@@ -15,6 +17,8 @@ use Doctrine\ORM\NonUniqueResultException;
 
 /**
  * Class CategoryService.
+ *
+ * Manages operations related to categories, including pagination, saving, deleting, and checking if a category can be deleted.
  */
 class CategoryService implements CategoryServiceInterface
 {
@@ -27,9 +31,9 @@ class CategoryService implements CategoryServiceInterface
     /**
      * Constructor.
      *
-     * @param CategoryRepository $categoryRepository Category repository
-     * @param EventsRepository $eventsRepository Events repository
-     * @param PaginatorInterface $paginator Paginator
+     * @param CategoryRepository  $categoryRepository  The category repository
+     * @param EventsRepository    $eventsRepository    The events repository
+     * @param PaginatorInterface  $paginator           The paginator service
      */
     public function __construct(CategoryRepository $categoryRepository, EventsRepository $eventsRepository, PaginatorInterface $paginator)
     {
@@ -38,6 +42,13 @@ class CategoryService implements CategoryServiceInterface
         $this->paginator = $paginator;
     }
 
+    /**
+     * Get paginated list of categories.
+     *
+     * @param int $page The page number
+     *
+     * @return PaginationInterface The paginated list of categories
+     */
     public function getPaginatedList(int $page): PaginationInterface
     {
         return $this->paginator->paginate(
@@ -47,22 +58,37 @@ class CategoryService implements CategoryServiceInterface
         );
     }
 
+    /**
+     * Save a category.
+     *
+     * @param Category $category The category entity to save
+     */
     public function save(Category $category): void
     {
         $this->categoryRepository->save($category);
     }
 
+    /**
+     * Delete a category.
+     *
+     * @param Category $category The category entity to delete
+     */
     public function delete(Category $category): void
     {
         $this->categoryRepository->delete($category);
     }
 
     /**
-     * Can Category be deleted?
+     * Can the category be deleted?
      *
-     * @param Category $category Category entity
+     * Checks if the category can be deleted by ensuring no events are associated with it.
      *
-     * @return bool Result
+     * @param Category $category The category entity
+     *
+     * @return bool True if the category can be deleted, false otherwise
+     *
+     * @throws NoResultException If no result is found when counting events
+     * @throws NonUniqueResultException If more than one result is found when counting events
      */
     public function canBeDeleted(Category $category): bool
     {
@@ -70,7 +96,7 @@ class CategoryService implements CategoryServiceInterface
             $result = $this->eventsRepository->countByCategory($category);
 
             return !($result > 0);
-        } catch (NoResultException|NonUniqueResultException) {
+        } catch (NoResultException|NonUniqueResultException $e) {
             return false;
         }
     }

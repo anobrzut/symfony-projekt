@@ -1,6 +1,8 @@
 <?php
 /**
- * User fixtures.
+ * Projekt Symfony - Zarzadzanie Informacja Osobista
+ *
+ * (c) Anna Obrzut 2024 <ania.obrzut@student.uj.edu.pl>
  */
 
 namespace App\DataFixtures;
@@ -10,21 +12,32 @@ use App\Entity\User;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Faker\Factory;
-use Faker\Generator;
 
 /**
  * Class UserFixtures.
+ *
+ * This class is responsible for creating user and admin fixtures in the database.
  */
 class UserFixtures extends AbstractBaseFixtures
 {
     private UserPasswordHasherInterface $passwordHasher;
 
+    /**
+     * Constructor.
+     *
+     * @param UserPasswordHasherInterface $passwordHasher The password hasher
+     */
     public function __construct(UserPasswordHasherInterface $passwordHasher)
     {
         $this->passwordHasher = $passwordHasher;
         $this->faker = Factory::create();
     }
 
+    /**
+     * Loads user and admin data into the database.
+     *
+     * Creates 10 regular users and 3 admins with hashed passwords.
+     */
     protected function loadData(): void
     {
         $this->createMany(10, 'users', function (int $i) {

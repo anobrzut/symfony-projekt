@@ -1,6 +1,8 @@
 <?php
 /**
- * Events fixtures.
+ * Projekt Symfony - Zarzadzanie Informacja Osobista
+ *
+ * (c) Anna Obrzut 2024 <ania.obrzut@student.uj.edu.pl>
  */
 
 namespace App\DataFixtures;
@@ -14,9 +16,16 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
 /**
  * Class EventsFixtures.
+ *
+ * This class is responsible for loading event data fixtures, which include creating events with associated categories, tags, and authors.
  */
 class EventsFixtures extends AbstractBaseFixtures implements DependentFixtureInterface
 {
+    /**
+     * Loads the event data into the database.
+     *
+     * This method creates 10 event entities with random titles, descriptions, categories, tags, and authors.
+     */
     protected function loadData(): void
     {
         $this->createMany(10, 'events', function (int $i) {
@@ -47,6 +56,13 @@ class EventsFixtures extends AbstractBaseFixtures implements DependentFixtureInt
         $this->manager->flush();
     }
 
+    /**
+     * Returns the dependencies for this fixture.
+     *
+     * This fixture depends on the CategoryFixtures, TagFixtures, and UserFixtures to ensure that events can reference valid categories, tags, and authors.
+     *
+     * @return array The list of dependent fixture classes
+     */
     public function getDependencies(): array
     {
         return [

@@ -1,6 +1,8 @@
 <?php
 /**
- * Events service interface.
+ * Projekt Symfony - Zarzadzanie Informacja Osobista
+ *
+ * (c) Anna Obrzut 2024 <ania.obrzut@student.uj.edu.pl>
  */
 
 namespace App\Service;
@@ -17,7 +19,7 @@ interface EventsServiceInterface
     /**
      * Get paginated list.
      *
-     * @param int $page Page number
+     * @param int  $page Page number
      * @param User $user User entity
      *
      * @return PaginationInterface<string, mixed> Paginated list

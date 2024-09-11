@@ -1,6 +1,8 @@
 <?php
 /**
- * Events voter.
+ * Projekt Symfony - Zarzadzanie Informacja Osobista
+ *
+ * (c) Anna Obrzut 2024 <ania.obrzut@student.uj.edu.pl>
  */
 
 namespace App\Security\Voter;
@@ -81,8 +83,8 @@ class EventsVoter extends Voter
     /**
      * Checks if user can edit event.
      *
-     * @param Events         $event Event entity
-     * @param UserInterface  $user  User
+     * @param Events        $event Event entity
+     * @param UserInterface $user  User
      *
      * @return bool Result
      */
@@ -94,8 +96,8 @@ class EventsVoter extends Voter
     /**
      * Checks if user can view event.
      *
-     * @param Events         $event Event entity
-     * @param UserInterface  $user  User
+     * @param Events        $event Event entity
+     * @param UserInterface $user  User
      *
      * @return bool Result
      */
@@ -107,8 +109,8 @@ class EventsVoter extends Voter
     /**
      * Checks if user can delete event.
      *
-     * @param Events         $event Event entity
-     * @param UserInterface  $user  User
+     * @param Events        $event Event entity
+     * @param UserInterface $user  User
      *
      * @return bool Result
      */

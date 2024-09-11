@@ -1,6 +1,8 @@
 <?php
 /**
- * Events controller.
+ * Projekt Symfony - Zarzadzanie Informacja Osobista
+ *
+ * (c) Anna Obrzut 2024 <ania.obrzut@student.uj.edu.pl>
  */
 
 namespace App\Controller;
@@ -10,9 +12,7 @@ use App\Entity\User;
 use App\Form\Type\EventsType;
 use App\Service\EventsServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -31,10 +31,8 @@ class EventsController extends AbstractController
      * @param EventsServiceInterface $eventsService Events service
      * @param TranslatorInterface    $translator    Translator
      */
-    public function __construct(
-        private readonly EventsServiceInterface $eventsService,
-        private readonly TranslatorInterface $translator,
-    ) {
+    public function __construct(private readonly EventsServiceInterface $eventsService, private readonly TranslatorInterface $translator)
+    {
     }
 
     /**
@@ -48,6 +46,8 @@ class EventsController extends AbstractController
     public function index(Request $request): Response
     {
         $page = $request->query->getInt('page', 1);
+
+        /** @var User|null $user */
         $user = $this->getUser();
 
         $categoryId = $request->query->get('category');

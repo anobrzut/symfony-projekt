@@ -1,4 +1,9 @@
 <?php
+/**
+ * Projekt Symfony - Zarzadzanie Informacja Osobista
+ *
+ * (c) Anna Obrzut 2024 <ania.obrzut@student.uj.edu.pl>
+ */
 
 namespace App\Service;
 
@@ -11,6 +16,8 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 /**
  * Class UserService.
+ *
+ * Manages operations related to users, including pagination, saving, and deleting.
  */
 class UserService implements UserServiceInterface
 {
@@ -21,6 +28,14 @@ class UserService implements UserServiceInterface
     private EntityManagerInterface $entityManager;
     private UserPasswordHasherInterface $passwordHasher;
 
+    /**
+     * Constructor.
+     *
+     * @param UserRepository              $userRepository  The user repository
+     * @param PaginatorInterface          $paginator       The paginator service
+     * @param EntityManagerInterface      $entityManager   The entity manager
+     * @param UserPasswordHasherInterface $passwordHasher  The password hasher service
+     */
     public function __construct(
         UserRepository $userRepository,
         PaginatorInterface $paginator,
@@ -33,6 +48,13 @@ class UserService implements UserServiceInterface
         $this->passwordHasher = $passwordHasher;
     }
 
+    /**
+     * Get a paginated list of users.
+     *
+     * @param int $page The page number
+     *
+     * @return PaginationInterface The paginated list of users
+     */
     public function getPaginatedList(int $page): PaginationInterface
     {
         return $this->paginator->paginate(
@@ -42,6 +64,13 @@ class UserService implements UserServiceInterface
         );
     }
 
+    /**
+     * Save a user.
+     *
+     * Hashes the plain password if provided and saves the user entity.
+     *
+     * @param User $user The user entity to save
+     */
     public function save(User $user): void
     {
         if ($user->getPlainPassword()) {
@@ -53,7 +82,11 @@ class UserService implements UserServiceInterface
         $this->entityManager->flush();
     }
 
-
+    /**
+     * Delete a user.
+     *
+     * @param User $user The user entity to delete
+     */
     public function delete(User $user): void
     {
         $this->entityManager->remove($user);

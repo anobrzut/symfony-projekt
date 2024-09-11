@@ -1,5 +1,9 @@
 <?php
-
+/**
+ * Projekt Symfony - Zarzadzanie Informacja Osobista
+ *
+ * (c) Anna Obrzut 2024 <ania.obrzut@student.uj.edu.pl>
+ */
 
 namespace App\Repository;
 
@@ -24,13 +28,21 @@ use Doctrine\ORM\NonUniqueResultException;
  */
 class EventsRepository extends ServiceEntityRepository
 {
-    public const PAGINATOR_ITEMS_PER_PAGE = 5;
-
+    /**
+     * Constructor.
+     *
+     * @param ManagerRegistry $registry Manager registry
+     */
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Events::class);
     }
 
+    /**
+     * Query all events.
+     *
+     * @return QueryBuilder Query builder
+     */
     public function queryAll(): QueryBuilder
     {
         return $this->getOrCreateQueryBuilder()
@@ -46,19 +58,19 @@ class EventsRepository extends ServiceEntityRepository
      */
     public function queryByUser(User $user): QueryBuilder
     {
-        $qb = $this->getOrCreateQueryBuilder()
+        return $this->getOrCreateQueryBuilder()
             ->andWhere('events.author = :user')
             ->setParameter('user', $user)
             ->orderBy('events.id', 'ASC');
-
-        return $qb;
     }
 
-    private function getOrCreateQueryBuilder(QueryBuilder $queryBuilder = null): QueryBuilder
-    {
-        return $queryBuilder ?? $this->createQueryBuilder('events');
-    }
-
+    /**
+     * Save an event entity.
+     *
+     * @param Events $event The event entity to save
+     *
+     * @return void
+     */
     public function save(Events $event): void
     {
         $entityManager = $this->getEntityManager();
@@ -66,6 +78,13 @@ class EventsRepository extends ServiceEntityRepository
         $entityManager->flush();
     }
 
+    /**
+     * Delete an event entity.
+     *
+     * @param Events $event The event entity to delete
+     *
+     * @return void
+     */
     public function delete(Events $event): void
     {
         $entityManager = $this->getEntityManager();
@@ -91,5 +110,17 @@ class EventsRepository extends ServiceEntityRepository
             ->setParameter('category', $category);
 
         return (int) $qb->getQuery()->getSingleScalarResult();
+    }
+
+    /**
+     * Get or create new query builder.
+     *
+     * @param QueryBuilder|null $queryBuilder Query builder
+     *
+     * @return QueryBuilder Query builder
+     */
+    private function getOrCreateQueryBuilder(QueryBuilder $queryBuilder = null): QueryBuilder
+    {
+        return $queryBuilder ?? $this->createQueryBuilder('events');
     }
 }

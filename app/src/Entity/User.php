@@ -1,6 +1,8 @@
 <?php
 /**
- * User entity.
+ * Projekt Symfony - Zarzadzanie Informacja Osobista
+ *
+ * (c) Anna Obrzut 2024 <ania.obrzut@student.uj.edu.pl>
  */
 
 namespace App\Entity;
@@ -187,6 +189,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * Returning a salt is only needed, if you are not using a modern
      * hashing algorithm (e.g. bcrypt or sodium) in your security.yaml.
+     *
+     * @return string|null Salt (always null in this case)
      *
      * @see UserInterface
      */

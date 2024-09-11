@@ -1,4 +1,9 @@
 <?php
+/**
+ * Projekt Symfony - Zarzadzanie Informacja Osobista
+ *
+ * (c) Anna Obrzut 2024 <ania.obrzut@student.uj.edu.pl>
+ */
 
 namespace App\Form\Type;
 
@@ -12,18 +17,26 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * Class ContactsType.
+ *
+ * This form type is used to handle Contacts entity forms, allowing users to input information such as name, phone, description, and tags.
  */
 class ContactsType extends AbstractType
 {
     /**
-     * Konstruktor.
+     * Constructor.
      *
-     * @param TagsDataTransformer $tagsDataTransformer Transformator danych dla tagów
+     * @param TagsDataTransformer $tagsDataTransformer Data transformer for handling tag inputs
      */
     public function __construct(private readonly TagsDataTransformer $tagsDataTransformer)
     {
     }
 
+    /**
+     * Builds the form for the Contacts entity.
+     *
+     * @param FormBuilderInterface $builder The form builder
+     * @param array<string, mixed> $options Additional form options
+     */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -66,11 +79,21 @@ class ContactsType extends AbstractType
         $builder->get('tags')->addModelTransformer($this->tagsDataTransformer);
     }
 
+    /**
+     * Configures the options for this form type.
+     *
+     * @param OptionsResolver $resolver The options resolver
+     */
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults(['data_class' => Contacts::class]);
     }
 
+    /**
+     * Returns the prefix of the template block name for this type.
+     *
+     * @return string The block prefix
+     */
     public function getBlockPrefix(): string
     {
         return 'contacts';

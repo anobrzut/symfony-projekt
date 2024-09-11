@@ -1,6 +1,8 @@
 <?php
 /**
- * Category type.
+ * Projekt Symfony - Zarzadzanie Informacja Osobista
+ *
+ * (c) Anna Obrzut 2024 <ania.obrzut@student.uj.edu.pl>
  */
 
 namespace App\Form\Type;
@@ -36,7 +38,8 @@ class CategoryType extends AbstractType
                 'label' => 'label.title',
                 'required' => true,
                 'attr' => ['max_length' => 64],
-            ]);
+            ]
+        );
     }
 
     /**

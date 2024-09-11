@@ -1,4 +1,9 @@
 <?php
+/**
+ * Projekt Symfony - Zarzadzanie Informacja Osobista
+ *
+ * (c) Anna Obrzut 2024 <ania.obrzut@student.uj.edu.pl>
+ */
 
 namespace App\Entity;
 
@@ -8,6 +13,12 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
+/**
+ * Class Tag.
+ *
+ * Represents a tag entity with a title, slug, and timestamps for creation and updates.
+ * This class ensures that the title is unique and provides auto-generated slugs for tags.
+ */
 #[ORM\Entity(repositoryClass: TagRepository::class)]
 #[ORM\Table(name: 'tags')]
 #[UniqueEntity(fields: ['title'])]

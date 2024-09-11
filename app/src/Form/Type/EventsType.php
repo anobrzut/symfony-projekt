@@ -1,4 +1,9 @@
 <?php
+/**
+ * Projekt Symfony - Zarzadzanie Informacja Osobista
+ *
+ * (c) Anna Obrzut 2024 <ania.obrzut@student.uj.edu.pl>
+ */
 
 namespace App\Form\Type;
 
@@ -15,18 +20,26 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * Class EventsType.
+ *
+ * This form type is used for handling the creation and editing of Events entities.
  */
 class EventsType extends AbstractType
 {
     /**
      * Constructor.
      *
-     * @param TagsDataTransformer $tagsDataTransformer Tags data transformer
+     * @param TagsDataTransformer $tagsDataTransformer Data transformer for handling tags input
      */
     public function __construct(private readonly TagsDataTransformer $tagsDataTransformer)
     {
     }
 
+    /**
+     * Builds the form for the Events entity.
+     *
+     * @param FormBuilderInterface $builder The form builder
+     * @param array<string, mixed> $options Additional form options
+     */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -81,11 +94,21 @@ class EventsType extends AbstractType
         $builder->get('tags')->addModelTransformer($this->tagsDataTransformer);
     }
 
+    /**
+     * Configures the options for this form type.
+     *
+     * @param OptionsResolver $resolver The options resolver
+     */
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults(['data_class' => Events::class]);
     }
 
+    /**
+     * Returns the prefix of the template block name for this form type.
+     *
+     * @return string The block prefix
+     */
     public function getBlockPrefix(): string
     {
         return 'events';
