@@ -5,12 +5,9 @@ namespace App\Form\Type;
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
-use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints\Length;
 
 /**
  * Class UserType.
@@ -40,22 +37,6 @@ class UserType extends AbstractType
                 'multiple' => true,
                 'expanded' => true,
                 'label' => 'label.roles',
-            ])
-            ->add('plainPassword', RepeatedType::class, [
-                'type' => PasswordType::class,
-                'required' => !$options['is_edit'],
-                'first_options' => [
-                    'label' => 'label.password',
-                    'constraints' => [
-                        new Length([
-                            'min' => 6,
-                            'minMessage' => 'Your password should be at least {{ limit }} characters',
-                            'max' => 4096,
-                        ]),
-                    ],
-                ],
-                'second_options' => ['label' => 'label.repeat_password'],
-                'mapped' => false,
             ]);
     }
 

@@ -52,17 +52,21 @@ class EventsController extends AbstractController
 
         $categoryId = $request->query->get('category');
         $hidePastEvents = $request->query->getBoolean('hide_past_events', false);
+        $tagIds = $request->query->all('tags');
 
         $category = $categoryId ? $this->eventsService->findCategoryById($categoryId) : null;
+        $tags = $tagIds ? $this->eventsService->findTagsByIds($tagIds) : [];
 
-        $pagination = $this->eventsService->getPaginatedList($page, $user, $category, $hidePastEvents);
+        $pagination = $this->eventsService->getPaginatedList($page, $user, $category, $hidePastEvents, $tags);
 
         $categories = $this->eventsService->getCategoriesForFilter();
+        $availableTags = $this->eventsService->getTagsForFilter();
 
         return $this->render('events/index.html.twig', [
             'pagination' => $pagination,
             'categories' => $categories,
-            'hide_past_events' => $hidePastEvents, // Pass the current filter state to the template
+            'tags' => $availableTags,
+            'hide_past_events' => $hidePastEvents,
         ]);
     }
 

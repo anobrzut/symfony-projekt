@@ -3,8 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\User;
-use App\Form\Type\UserType;
 use App\Form\Type\ChangePasswordType;
+use App\Form\Type\UserType;
 use App\Service\UserServiceInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -71,6 +71,33 @@ class UserController extends AbstractController
     }
 
     /**
+     * Change password for a specific user (Admin only).
+     */
+    #[Route('/admin/{id}/change-password', name: 'user_change_password_admin', requirements: ['id' => '[1-9]\d*'], methods: ['GET', 'POST'])]
+    #[IsGranted('ROLE_ADMIN')]
+    public function changePasswordAdmin(Request $request, User $user, ManagerRegistry $doctrine): Response
+    {
+        $form = $this->createForm(ChangePasswordType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $newPassword = $form->get('newPassword')->getData();
+            $hashedPassword = $this->passwordHasher->hashPassword($user, $newPassword);
+            $user->setPassword($hashedPassword);
+            $doctrine->getManager()->flush();
+
+            $this->addFlash('success', $this->translator->trans('message.password_changed_successfully'));
+
+            return $this->redirectToRoute('user_index');
+        }
+
+        return $this->render('user/change_password_admin.html.twig', [
+            'form' => $form->createView(),
+            'user' => $user,
+        ]);
+    }
+
+    /**
      * User list for admins.
      */
     #[Route('/admin', name: 'user_index', methods: 'GET')]
@@ -94,37 +121,6 @@ class UserController extends AbstractController
     }
 
     /**
-     * Create a new user (Admin only).
-     */
-    #[Route('/admin/create', name: 'user_create', methods: ['GET', 'POST'])]
-    #[IsGranted('ROLE_ADMIN')]
-    public function create(Request $request, EntityManagerInterface $entityManager): Response
-    {
-        $user = new User();
-        $form = $this->createForm(UserType::class, $user, ['is_edit' => false]);
-
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $plainPassword = $form->get('plainPassword')->getData();
-            if ($plainPassword) {
-                $hashedPassword = $this->passwordHasher->hashPassword($user, $plainPassword);
-                $user->setPassword($hashedPassword);
-            }
-
-            $this->userService->save($user);
-
-            $this->addFlash('success', $this->translator->trans('message.created_successfully'));
-
-            return $this->redirectToRoute('user_index');
-        }
-
-        return $this->render('user/create.html.twig', [
-            'form' => $form->createView(),
-        ]);
-    }
-
-    /**
      * Edit an existing user (Admin only).
      */
     #[Route('/admin/{id}/edit', name: 'user_edit', requirements: ['id' => '[1-9]\d*'], methods: ['GET', 'POST'])]
@@ -137,12 +133,6 @@ class UserController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $plainPassword = $form->get('plainPassword')->getData();
-            if ($plainPassword) {
-                $hashedPassword = $this->passwordHasher->hashPassword($user, $plainPassword);
-                $user->setPassword($hashedPassword);
-            }
-
             $this->userService->save($user);
 
             $this->addFlash('success', $this->translator->trans('message.user_updated_successfully'));
@@ -155,7 +145,6 @@ class UserController extends AbstractController
             'user' => $user,
         ]);
     }
-
 
     /**
      * Delete a user (Admin only).
