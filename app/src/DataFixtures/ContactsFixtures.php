@@ -19,6 +19,20 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 class ContactsFixtures extends AbstractBaseFixtures implements DependentFixtureInterface
 {
     /**
+     * Returns the dependencies for this fixture.
+     *
+     * This fixture depends on the UserFixtures to ensure that contacts can reference valid users.
+     *
+     * @return array The list of dependent fixture classes
+     */
+    public function getDependencies(): array
+    {
+        return [
+            UserFixtures::class,
+        ];
+    }
+
+    /**
      * Loads contact data into the database.
      *
      * This method creates 10 contact entities with random names, phone numbers, descriptions, and assigns a random user as the author.
@@ -39,20 +53,6 @@ class ContactsFixtures extends AbstractBaseFixtures implements DependentFixtureI
         });
 
         $this->manager->flush();
-    }
-
-    /**
-     * Returns the dependencies for this fixture.
-     *
-     * This fixture depends on the UserFixtures to ensure that contacts can reference valid users.
-     *
-     * @return array The list of dependent fixture classes
-     */
-    public function getDependencies(): array
-    {
-        return [
-            UserFixtures::class,
-        ];
     }
 
     /**

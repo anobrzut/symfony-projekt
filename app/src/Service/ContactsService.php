@@ -26,15 +26,12 @@ class ContactsService implements ContactsServiceInterface
     /**
      * Constructor.
      *
-     * @param ContactsRepository   $contactsRepository The contacts repository
-     * @param PaginatorInterface   $paginator          The paginator service
-     * @param TagServiceInterface  $tagService         The tag service
+     * @param ContactsRepository  $contactsRepository The contacts repository
+     * @param PaginatorInterface  $paginator          The paginator service
+     * @param TagServiceInterface $tagService         The tag service
      */
-    public function __construct(
-        private readonly ContactsRepository $contactsRepository,
-        private readonly PaginatorInterface $paginator,
-        private readonly TagServiceInterface $tagService
-    ) {
+    public function __construct(private readonly ContactsRepository $contactsRepository, private readonly PaginatorInterface $paginator, private readonly TagServiceInterface $tagService)
+    {
     }
 
     /**

@@ -29,27 +29,23 @@ class EventsService implements EventsServiceInterface
     /**
      * Constructor.
      *
-     * @param EventsRepository     $eventsRepository    The events repository
-     * @param PaginatorInterface   $paginator           The paginator service
-     * @param CategoryRepository   $categoryRepository  The category repository
-     * @param TagRepository        $tagRepository       The tag repository
+     * @param EventsRepository   $eventsRepository   The events repository
+     * @param PaginatorInterface $paginator          The paginator service
+     * @param CategoryRepository $categoryRepository The category repository
+     * @param TagRepository      $tagRepository      The tag repository
      */
-    public function __construct(
-        private readonly EventsRepository $eventsRepository,
-        private readonly PaginatorInterface $paginator,
-        private readonly CategoryRepository $categoryRepository,
-        private readonly TagRepository $tagRepository
-    ) {
+    public function __construct(private readonly EventsRepository $eventsRepository, private readonly PaginatorInterface $paginator, private readonly CategoryRepository $categoryRepository, private readonly TagRepository $tagRepository)
+    {
     }
 
     /**
      * Get paginated list of events.
      *
-     * @param int       $page           The page number
-     * @param User      $user           The user entity
-     * @param Category|null $category   The category filter (optional)
-     * @param bool      $hidePastEvents Whether to hide past events
-     * @param array     $tags           Array of tags for filtering
+     * @param int           $page           The page number
+     * @param User          $user           The user entity
+     * @param Category|null $category       The category filter (optional)
+     * @param bool          $hidePastEvents Whether to hide past events
+     * @param array         $tags           Array of tags for filtering
      *
      * @return PaginationInterface The paginated list of events
      */

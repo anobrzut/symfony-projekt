@@ -36,9 +36,9 @@ class UserController extends AbstractController
     /**
      * Constructor.
      *
-     * @param UserServiceInterface          $userService    The user service interface
-     * @param TranslatorInterface           $translator     The translator service
-     * @param UserPasswordHasherInterface   $passwordHasher The password hasher
+     * @param UserServiceInterface        $userService    The user service interface
+     * @param TranslatorInterface         $translator     The translator service
+     * @param UserPasswordHasherInterface $passwordHasher The password hasher
      */
     public function __construct(UserServiceInterface $userService, TranslatorInterface $translator, UserPasswordHasherInterface $passwordHasher)
     {
@@ -50,8 +50,8 @@ class UserController extends AbstractController
     /**
      * Change password action for regular users.
      *
-     * @param Request          $request  The current request
-     * @param ManagerRegistry  $doctrine The doctrine manager registry
+     * @param Request         $request  The current request
+     * @param ManagerRegistry $doctrine The doctrine manager registry
      *
      * @return Response The response for the password change action
      */
@@ -61,6 +61,7 @@ class UserController extends AbstractController
         $user = $this->getUser();
         if (!$user instanceof UserInterface || !$user instanceof \Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface) {
             $this->addFlash('danger', $this->translator->trans('message.user_not_authenticated'));
+
             return $this->redirectToRoute('app_login');
         }
 
@@ -92,9 +93,9 @@ class UserController extends AbstractController
     /**
      * Change password for a specific user (Admin only).
      *
-     * @param Request          $request  The current request
-     * @param User             $user     The user entity
-     * @param ManagerRegistry  $doctrine The doctrine manager registry
+     * @param Request         $request  The current request
+     * @param User            $user     The user entity
+     * @param ManagerRegistry $doctrine The doctrine manager registry
      *
      * @return Response The response for the admin password change action
      */

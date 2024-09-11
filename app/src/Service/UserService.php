@@ -31,17 +31,13 @@ class UserService implements UserServiceInterface
     /**
      * Constructor.
      *
-     * @param UserRepository              $userRepository  The user repository
-     * @param PaginatorInterface          $paginator       The paginator service
-     * @param EntityManagerInterface      $entityManager   The entity manager
-     * @param UserPasswordHasherInterface $passwordHasher  The password hasher service
+     * @param UserRepository              $userRepository The user repository
+     * @param PaginatorInterface          $paginator      The paginator service
+     * @param EntityManagerInterface      $entityManager  The entity manager
+     * @param UserPasswordHasherInterface $passwordHasher The password hasher service
      */
-    public function __construct(
-        UserRepository $userRepository,
-        PaginatorInterface $paginator,
-        EntityManagerInterface $entityManager,
-        UserPasswordHasherInterface $passwordHasher
-    ) {
+    public function __construct(UserRepository $userRepository, PaginatorInterface $paginator, EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher)
+    {
         $this->userRepository = $userRepository;
         $this->paginator = $paginator;
         $this->entityManager = $entityManager;

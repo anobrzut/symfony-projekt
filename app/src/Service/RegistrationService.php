@@ -27,10 +27,8 @@ class RegistrationService implements RegistrationServiceInterface
      * @param EntityManagerInterface      $entityManager  The entity manager
      * @param UserPasswordHasherInterface $passwordHasher The password hasher
      */
-    public function __construct(
-        EntityManagerInterface $entityManager,
-        UserPasswordHasherInterface $passwordHasher
-    ) {
+    public function __construct(EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher)
+    {
         $this->entityManager = $entityManager;
         $this->passwordHasher = $passwordHasher;
     }

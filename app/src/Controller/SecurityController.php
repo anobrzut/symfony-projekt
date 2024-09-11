@@ -1,6 +1,6 @@
 <?php
 /**
- * Projekt Symfony - Zarzadzanie Informacja Osobista
+ * Projekt Symfony - Zarzadzanie Informacja Osobista.
  *
  * (c) Anna Obrzut 2024 <ania.obrzut@student.uj.edu.pl>
  */
@@ -14,8 +14,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * Class SecurityController.
@@ -48,7 +48,7 @@ class SecurityController extends AbstractController
      *
      * This method will be intercepted by the Symfony firewall for logout.
      *
-     * @throws \LogicException This method should never be executed directly.
+     * @throws \LogicException this method should never be executed directly
      */
     #[Route(path: '/logout', name: 'app_logout')]
     public function logout(): void
@@ -59,18 +59,15 @@ class SecurityController extends AbstractController
     /**
      * Register action.
      *
-     * @param Request                    $request              The current request
+     * @param Request                      $request             The current request
      * @param RegistrationServiceInterface $registrationService The registration service
-     * @param TranslatorInterface         $translator           The translator service
+     * @param TranslatorInterface          $translator          The translator service
      *
      * @return Response Renders the registration form and handles the submission
      */
     #[Route(path: '/register', name: 'app_register')]
-    public function register(
-        Request $request,
-        RegistrationServiceInterface $registrationService,
-        TranslatorInterface $translator
-    ): Response {
+    public function register(Request $request, RegistrationServiceInterface $registrationService, TranslatorInterface $translator): Response
+    {
         if ($this->getUser()) {
             return $this->redirectToRoute('app_home');
         }
