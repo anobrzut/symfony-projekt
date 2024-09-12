@@ -1,29 +1,27 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}User Details{% endblock %}
+{% block title %}
+    {{ 'title.user_details'|trans({'%id%': user.id|default('')}) }}
+{% endblock %}
 
 {% block body %}
-    <h1>User Details</h1>
+    <h1>{{ 'title.user_details'|trans({'%id%': user.id|default('')}) }}</h1>
 
-    <table>
-        <tbody>
-        <tr>
-            <th>ID</th>
-            <td>{{ user.id }}</td>
-        </tr>
-        <tr>
-            <th>Email</th>
-            <td>{{ user.email }}</td>
-        </tr>
-        <tr>
-            <th>Roles</th>
-            <td>{{ user.roles|join(', ') }}</td>
-        </tr>
-        </tbody>
-    </table>
+    {% if user is defined %}
+        <dl class="row">
+            <dt class="col-sm-3">{{ 'label.id'|trans }}</dt>
+            <dd class="col-sm-9">{{ user.id }}</dd>
 
-    <a href="{{ path('user_index') }}">Back to list</a>
-    <a href="{{ path('user_edit', {'id': user.id}) }}">Edit</a>
-    <a href="{{ path('user_delete', {'id': user.id}) }}"
-       onclick="return confirm('Are you sure you want to delete this user?');">Delete</a>
+            <dt class="col-sm-3">{{ 'label.email'|trans }}</dt>
+            <dd class="col-sm-9">{{ user.email }}</dd>
+
+            <dt class="col-sm-3">{{ 'label.roles'|trans }}</dt>
+            <dd class="col-sm-9">{{ user.roles|join(', ') }}</dd>
+        </dl>
+        <div class="mt-3">
+            <a href="{{ path('user_index') }}" class="btn btn-secondary">{{ 'action.back_to_list'|trans }}</a>
+        </div>
+    {% else %}
+        <div class="alert alert-warning mt-3">{{ 'message.record_not_found'|trans }}</div>
+    {% endif %}
 {% endblock %}

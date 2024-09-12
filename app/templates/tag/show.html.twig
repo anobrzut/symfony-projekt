@@ -1,24 +1,24 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Tag{% endblock %}
+{% block title %}
+    {{ 'title.tag_details'|trans({'%id%': tag.id|default('')}) }}
+{% endblock %}
 
 {% block body %}
-    <h1>Tag</h1>
+    <h1>{{ 'title.tag_details'|trans({'%id%': tag.id|default('')}) }}</h1>
 
-    <table>
-        <tbody>
-        <tr>
-            <th>ID</th>
-            <td>{{ tag.id }}</td>
-        </tr>
-        <tr>
-            <th>Title</th>
-            <td>{{ tag.title }}</td>
-        </tr>
-        </tbody>
-    </table>
+    {% if tag is defined %}
+        <dl class="row">
+            <dt class="col-sm-3">{{ 'label.id'|trans }}</dt>
+            <dd class="col-sm-9">{{ tag.id }}</dd>
 
-    <a href="{{ path('tag_index') }}">back to list</a>
-    <a href="{{ path('tag_edit', {'id': tag.id}) }}">edit</a>
-    <a href="{{ path('tag_delete', {'id': tag.id}) }}">delete</a>
+            <dt class="col-sm-3">{{ 'label.title'|trans }}</dt>
+            <dd class="col-sm-9">{{ tag.title }}</dd>
+        </dl>
+        <div class="mt-3">
+            <a href="{{ path('tag_index') }}" class="btn btn-secondary">{{ 'action.back_to_list'|trans }}</a>
+        </div>
+    {% else %}
+        <div class="alert alert-warning mt-3">{{ 'message.record_not_found'|trans }}</div>
+    {% endif %}
 {% endblock %}

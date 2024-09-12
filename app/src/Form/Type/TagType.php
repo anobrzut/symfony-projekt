@@ -12,6 +12,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * Class TagType.
@@ -20,6 +21,18 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 class TagType extends AbstractType
 {
+    private TranslatorInterface $translator;
+
+    /**
+     * Constructor.
+     *
+     * @param TranslatorInterface $translator The translator service
+     */
+    public function __construct(TranslatorInterface $translator)
+    {
+        $this->translator = $translator;
+    }
+
     /**
      * Builds the form for the Tag entity.
      *
@@ -30,11 +43,11 @@ class TagType extends AbstractType
     {
         $builder
             ->add('title', TextType::class, [
-                'label' => 'Title',
+                'label' => $this->translator->trans('label.title'),
                 'required' => true,
             ])
             ->add('slug', TextType::class, [
-                'label' => 'Slug',
+                'label' => $this->translator->trans('label.slug'),
                 'required' => false,
                 'disabled' => true,
             ]);

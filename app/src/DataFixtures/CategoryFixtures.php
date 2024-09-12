@@ -27,17 +27,6 @@ class CategoryFixtures extends AbstractBaseFixtures
             $category = new Category();
             $category->setTitle($this->faker->word);
 
-            try {
-                $createdAt = DateTimeImmutable::createFromMutable($this->faker->dateTimeBetween('-100 days', '-1 days'));
-                $updatedAt = DateTimeImmutable::createFromMutable($this->faker->dateTimeBetween($createdAt, 'now'));
-            } catch (Exception $e) {
-                $createdAt = new DateTimeImmutable();
-                $updatedAt = new DateTimeImmutable();
-            }
-
-            $category->setCreatedAt($createdAt);
-            $category->setUpdatedAt($updatedAt);
-
             return $category;
         });
 

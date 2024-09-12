@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    Register
+    {{ 'title.register'|trans }}
 {% endblock %}
 
 {% block body %}
-    <h1>Register</h1>
+    <h1>{{ 'title.register'|trans }}</h1>
 
     {{ form_start(form) }}
 
@@ -16,7 +16,7 @@
 
         <ul>
             {% for error in form.vars.errors %}
-                <li>{{ error.message }}</li>
+                <li>{{ error.message|trans }}</li>
             {% endfor %}
         </ul>
     {% endif %}
@@ -32,7 +32,7 @@
         {% endif %}
     {% endfor %}
 
-    <button class="btn btn-primary">Register</button>
+    <button class="btn btn-primary">{{ 'action.register'|trans }}</button>
 
     {{ form_end(form) }}
 {% endblock %}

@@ -6,39 +6,44 @@
 
 {% block body %}
     <h1>{{ 'title.event_details'|trans({'%id%': event.id|default('')}) }}</h1>
+
     {% if event is defined %}
-        <dl class="dl-horizontal">
-            <dt>{{ 'label.id'|trans }}</dt>
-            <dd>{{ event.id }}</dd>
-            <dt>{{ 'label.title'|trans }}</dt>
-            <dd>{{ event.title }}</dd>
-            <dt>{{ 'label.description'|trans }}</dt>
-            <dd>{{ event.description }}</dd>
-            <dt>{{ 'label.date'|trans }}</dt>
-            <dd>{{ event.date|date('Y/m/d H:i') }}</dd>
-            <dt>{{ 'label.category'|trans }}</dt>
-            <dd>{{ event.category.title }}</dd>
-            <dt>{{ 'label.tags'|trans }}</dt>
-            <dd>
+        <dl class="row">
+            <dt class="col-sm-3">{{ 'label.id'|trans }}</dt>
+            <dd class="col-sm-9">{{ event.id }}</dd>
+
+            <dt class="col-sm-3">{{ 'label.title'|trans }}</dt>
+            <dd class="col-sm-9">{{ event.title }}</dd>
+
+            <dt class="col-sm-3">{{ 'label.description'|trans }}</dt>
+            <dd class="col-sm-9">{{ event.description }}</dd>
+
+            <dt class="col-sm-3">{{ 'label.date'|trans }}</dt>
+            <dd class="col-sm-9">{{ event.date|date('Y/m/d H:i') }}</dd>
+
+            <dt class="col-sm-3">{{ 'label.category'|trans }}</dt>
+            <dd class="col-sm-9">{{ event.category.title }}</dd>
+
+            <dt class="col-sm-3">{{ 'label.tags'|trans }}</dt>
+            <dd class="col-sm-9">
                 {% for tag in event.tags %}
                     <span class="badge bg-secondary">{{ tag.title }}</span>
                 {% endfor %}
             </dd>
-            <dt>{{ 'label.author'|trans }}</dt>
-            <dd>{{ event.author ? event.author.username : 'N/A' }}</dd>
-            <dt>{{ 'label.created_at'|trans }}</dt>
-            <dd>{{ event.createdAt|date('Y/m/d H:i') }}</dd>
-            <dt>{{ 'label.updated_at'|trans }}</dt>
-            <dd>{{ event.updatedAt|date('Y/m/d H:i') }}</dd>
+
+            <dt class="col-sm-3">{{ 'label.author'|trans }}</dt>
+            <dd class="col-sm-9">{{ event.author ? event.author.username : 'N/A' }}</dd>
+
+            <dt class="col-sm-3">{{ 'label.created_at'|trans }}</dt>
+            <dd class="col-sm-9">{{ event.createdAt|date('Y/m/d H:i') }}</dd>
+
+            <dt class="col-sm-3">{{ 'label.updated_at'|trans }}</dt>
+            <dd class="col-sm-9">{{ event.updatedAt|date('Y/m/d H:i') }}</dd>
         </dl>
-        <p>
-            <a href="{{ url('event_index') }}" title="{{ 'action.back_to_list'|trans }}">
-                {{ 'action.back_to_list'|trans }}
-            </a>
-        </p>
+        <div class="mt-3">
+            <a href="{{ path('event_index') }}" class="btn btn-secondary">{{ 'action.back_to_list'|trans }}</a>
+        </div>
     {% else %}
-        <p>
-            {{ 'message.record_not_found'|trans }}
-        </p>
+        <div class="alert alert-warning mt-3">{{ 'message.record_not_found'|trans }}</div>
     {% endif %}
 {% endblock %}

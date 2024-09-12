@@ -306,6 +306,62 @@
           <source>title.tag_create</source>
           <target>Utwórz Tag</target>
       </trans-unit>
+      <trans-unit id="label.slug">
+          <source>label.slug</source>
+          <target>Slug</target>
+      </trans-unit>
+      <trans-unit id="title.welcome">
+          <source>title.welcome</source>
+          <target>Witamy</target>
+      </trans-unit>
+      <trans-unit id="title.register">
+          <source>title.register</source>
+          <target>Zarejestruj się</target>
+      </trans-unit>
+      <trans-unit id="action.register">
+          <source>action.register</source>
+          <target>Zarejestruj się</target>
+      </trans-unit>
+      <trans-unit id="title.login">
+          <source>title.login</source>
+          <target>Zaloguj się</target>
+      </trans-unit>
+      <trans-unit id="message.logged_in_as">
+          <source>message.logged_in_as</source>
+          <target>Jesteś zalogowany jako %username%</target>
+      </trans-unit>
+      <trans-unit id="title.sign_in">
+          <source>title.sign_in</source>
+          <target>Proszę się zalogować</target>
+      </trans-unit>
+      <trans-unit id="label.password">
+          <source>label.password</source>
+          <target>Hasło</target>
+      </trans-unit>
+      <trans-unit id="label.remember_me">
+          <source>label.remember_me</source>
+          <target>Zapamiętaj mnie</target>
+      </trans-unit>
+      <trans-unit id="action.sign_in">
+          <source>action.sign_in</source>
+          <target>Zaloguj się</target>
+      </trans-unit>
+      <trans-unit id="title.user_details">
+          <source>title.user_details</source>
+          <target>Szczegóły użytkownika</target>
+      </trans-unit>
+      <trans-unit id="title.tag_edit">
+          <source>title.tag_edit</source>
+          <target>Edytuj Tag</target>
+      </trans-unit>
+      <trans-unit id="title.tag_delete">
+          <source>title.tag_delete</source>
+          <target>Usuń Tag</target>
+      </trans-unit>
+      <trans-unit id="title.tag_details">
+          <source>title.tag_details</source>
+          <target>Szczegóły Tagu</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
