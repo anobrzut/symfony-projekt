@@ -362,6 +362,10 @@
           <source>title.tag_details</source>
           <target>Szczegóły Tagu</target>
       </trans-unit>
+      <trans-unit id="label.password_repeat">
+          <source>label.password_repeat</source>
+          <target>Powtórz hasło</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

@@ -50,6 +50,7 @@ class EventsType extends AbstractType
                     'label' => 'label.title',
                     'required' => true,
                     'attr' => ['max_length' => 255],
+                    'empty_data' => '',
                 ]
             )
             ->add(
@@ -68,6 +69,7 @@ class EventsType extends AbstractType
                     'label' => 'label.date',
                     'required' => true,
                     'widget' => 'single_text',
+                    'empty_data' => (new \DateTime())->format('Y-m-d\TH:i'),
                 ]
             )
             ->add(
@@ -79,6 +81,7 @@ class EventsType extends AbstractType
                     'label' => 'label.category',
                     'placeholder' => 'Choose a category',
                     'required' => true,
+                    'empty_data' => '',
                 ]
             )
             ->add(

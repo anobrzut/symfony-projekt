@@ -1,9 +1,10 @@
 <?php
 /**
- * Projekt Symfony - Zarzadzanie Informacja Osobista
+ * Projekt Symfony - Zarzadzanie Informacja Osobista.
  *
  * (c) Anna Obrzut 2024 <ania.obrzut@student.uj.edu.pl>
  */
+
 namespace App\Entity;
 
 use App\Repository\EventsRepository;
@@ -13,7 +14,6 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
-use DateTimeInterface;
 
 /**
  * Class Events.
@@ -32,24 +32,27 @@ class Events
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank]
     private ?string $title = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     #[Gedmo\Timestampable(on: 'create')]
-    private ?DateTimeInterface $createdAt = null;
+    private ?\DateTimeInterface $createdAt = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     #[Gedmo\Timestampable(on: 'update')]
-    private ?DateTimeInterface $updatedAt = null;
+    private ?\DateTimeInterface $updatedAt = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $description = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?DateTimeInterface $date = null;
+    #[Assert\NotBlank]
+    private ?\DateTimeInterface $date = null;
 
     #[ORM\ManyToOne(targetEntity: Category::class, fetch: 'EXTRA_LAZY')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Assert\NotBlank]
     private ?Category $category = null;
 
     /**
@@ -63,8 +66,6 @@ class Events
 
     /**
      * Author of the event.
-     *
-     * @var User|null
      */
     #[ORM\ManyToOne(targetEntity: User::class, fetch: 'EXTRA_LAZY')]
     #[ORM\JoinColumn(nullable: false)]
@@ -106,8 +107,6 @@ class Events
      * Set the title of the event.
      *
      * @param string $title The title of the event
-     *
-     * @return static
      */
     public function setTitle(string $title): static
     {
@@ -119,9 +118,9 @@ class Events
     /**
      * Get the creation date of the event.
      *
-     * @return DateTimeInterface|null The creation date
+     * @return \DateTimeInterface|null The creation date
      */
-    public function getCreatedAt(): ?DateTimeInterface
+    public function getCreatedAt(): ?\DateTimeInterface
     {
         return $this->createdAt;
     }
@@ -129,11 +128,9 @@ class Events
     /**
      * Set the creation date of the event.
      *
-     * @param DateTimeInterface $createdAt The creation date
-     *
-     * @return static
+     * @param \DateTimeInterface $createdAt The creation date
      */
-    public function setCreatedAt(DateTimeInterface $createdAt): static
+    public function setCreatedAt(\DateTimeInterface $createdAt): static
     {
         $this->createdAt = $createdAt;
 
@@ -143,9 +140,9 @@ class Events
     /**
      * Get the last update date of the event.
      *
-     * @return DateTimeInterface|null The last update date
+     * @return \DateTimeInterface|null The last update date
      */
-    public function getUpdatedAt(): ?DateTimeInterface
+    public function getUpdatedAt(): ?\DateTimeInterface
     {
         return $this->updatedAt;
     }
@@ -153,11 +150,9 @@ class Events
     /**
      * Set the last update date of the event.
      *
-     * @param DateTimeInterface $updatedAt The last update date
-     *
-     * @return static
+     * @param \DateTimeInterface $updatedAt The last update date
      */
-    public function setUpdatedAt(DateTimeInterface $updatedAt): static
+    public function setUpdatedAt(\DateTimeInterface $updatedAt): static
     {
         $this->updatedAt = $updatedAt;
 
@@ -178,8 +173,6 @@ class Events
      * Set the description of the event.
      *
      * @param string|null $description The description of the event
-     *
-     * @return static
      */
     public function setDescription(?string $description): static
     {
@@ -191,9 +184,9 @@ class Events
     /**
      * Get the date of the event.
      *
-     * @return DateTimeInterface|null The event date
+     * @return \DateTimeInterface|null The event date
      */
-    public function getDate(): ?DateTimeInterface
+    public function getDate(): ?\DateTimeInterface
     {
         return $this->date;
     }
@@ -201,11 +194,9 @@ class Events
     /**
      * Set the date of the event.
      *
-     * @param DateTimeInterface $date The event date
-     *
-     * @return static
+     * @param \DateTimeInterface $date The event date
      */
-    public function setDate(DateTimeInterface $date): static
+    public function setDate(\DateTimeInterface $date): static
     {
         $this->date = $date;
 
@@ -226,8 +217,6 @@ class Events
      * Set the category of the event.
      *
      * @param Category|null $category The event category
-     *
-     * @return static
      */
     public function setCategory(?Category $category): static
     {
@@ -250,8 +239,6 @@ class Events
      * Add a tag to the event.
      *
      * @param Tag $tag The tag to add
-     *
-     * @return static
      */
     public function addTag(Tag $tag): static
     {
@@ -266,8 +253,6 @@ class Events
      * Remove a tag from the event.
      *
      * @param Tag $tag The tag to remove
-     *
-     * @return static
      */
     public function removeTag(Tag $tag): static
     {
@@ -290,8 +275,6 @@ class Events
      * Set the author of the event.
      *
      * @param User|null $author The event author
-     *
-     * @return static
      */
     public function setAuthor(?User $author): static
     {

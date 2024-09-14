@@ -42,8 +42,9 @@ class RegistrationFormType extends AbstractType
             ])
             ->add('plainPassword', RepeatedType::class, [
                 'type' => PasswordType::class,
+                'label' => false,
                 'first_options' => [
-                    'label' => 'Password',
+                    'label' => 'label.password',
                     'constraints' => [
                         new NotBlank(['message' => 'Please enter a password']),
                         new Length([
@@ -53,7 +54,7 @@ class RegistrationFormType extends AbstractType
                     ],
                 ],
                 'second_options' => [
-                    'label' => 'Repeat Password',
+                    'label' => 'label.password_repeat',
                 ],
                 'invalid_message' => 'The password fields must match.',
             ]);

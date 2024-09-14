@@ -7,10 +7,12 @@
 
 namespace App\Form\Type;
 
+use App\Form\Validator\PasswordsMatch;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class ChangePasswordType.
@@ -34,18 +36,37 @@ class ChangePasswordType extends AbstractType
                 'mapped' => false,
                 'required' => true,
                 'attr' => ['autocomplete' => 'current-password'],
+                'constraints' => [
+                    new Assert\NotBlank([
+                        'message' => 'Please enter your current password.',
+                    ]),
+                ],
             ])
             ->add('newPassword', PasswordType::class, [
                 'label' => 'label.new_password',
                 'mapped' => false,
                 'required' => true,
                 'attr' => ['autocomplete' => 'new-password'],
+                'constraints' => [
+                    new Assert\NotBlank([
+                        'message' => 'Please enter a new password.',
+                    ]),
+                    new Assert\Length([
+                        'min' => 6,
+                        'minMessage' => 'Your new password should be at least {{ limit }} characters.',
+                    ]),
+                ],
             ])
             ->add('confirmNewPassword', PasswordType::class, [
                 'label' => 'label.confirm_new_password',
                 'mapped' => false,
                 'required' => true,
                 'attr' => ['autocomplete' => 'new-password'],
+                'constraints' => [
+                    new Assert\NotBlank([
+                        'message' => 'Please confirm your new password.',
+                    ]),
+                ],
             ]);
     }
 
@@ -56,6 +77,10 @@ class ChangePasswordType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver): void
     {
-        $resolver->setDefaults([]);
+        $resolver->setDefaults([
+            'constraints' => [
+                new PasswordsMatch(),
+            ],
+        ]);
     }
 }

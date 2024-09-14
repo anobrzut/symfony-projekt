@@ -1,6 +1,6 @@
 <?php
 /**
- * Projekt Symfony - Zarzadzanie Informacja Osobista
+ * Projekt Symfony - Zarzadzanie Informacja Osobista.
  *
  * (c) Anna Obrzut 2024 <ania.obrzut@student.uj.edu.pl>
  */
@@ -10,10 +10,10 @@ namespace App\Service;
 use App\Entity\Category;
 use App\Repository\CategoryRepository;
 use App\Repository\EventsRepository;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
 use Knp\Component\Pager\Pagination\PaginationInterface;
 use Knp\Component\Pager\PaginatorInterface;
-use Doctrine\ORM\NoResultException;
-use Doctrine\ORM\NonUniqueResultException;
 
 /**
  * Class CategoryService.
@@ -87,7 +87,7 @@ class CategoryService implements CategoryServiceInterface
      *
      * @return bool True if the category can be deleted, false otherwise
      *
-     * @throws NoResultException If no result is found when counting events
+     * @throws NoResultException        If no result is found when counting events
      * @throws NonUniqueResultException If more than one result is found when counting events
      */
     public function canBeDeleted(Category $category): bool

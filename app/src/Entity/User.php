@@ -63,8 +63,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      *
      * @var string|null
      */
-    #[Assert\NotBlank]
-    #[Assert\Length(min: 6)]
+    #[Assert\NotBlank(message: 'This value should not be blank.', groups: ['create', 'change_password'])]
+    #[Assert\Length(min: 6, groups: ['create', 'change_password'])]
     private ?string $plainPassword = null;
 
     /**

@@ -17,7 +17,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 /**
  * Class UserType.
  *
- * Defines the form used to create or edit a user.
+ * Defines the form used to edit a user.
  */
 class UserType extends AbstractType
 {

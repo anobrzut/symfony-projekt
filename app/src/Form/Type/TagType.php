@@ -45,11 +45,7 @@ class TagType extends AbstractType
             ->add('title', TextType::class, [
                 'label' => $this->translator->trans('label.title'),
                 'required' => true,
-            ])
-            ->add('slug', TextType::class, [
-                'label' => $this->translator->trans('label.slug'),
-                'required' => false,
-                'disabled' => true,
+                'empty_data' => '',
             ]);
     }
 

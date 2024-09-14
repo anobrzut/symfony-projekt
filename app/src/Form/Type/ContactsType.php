@@ -47,6 +47,7 @@ class ContactsType extends AbstractType
                     'label' => 'label.name',
                     'required' => true,
                     'attr' => ['max_length' => 255],
+                    'empty_data' => '',
                 ]
             )
             ->add(
@@ -55,6 +56,7 @@ class ContactsType extends AbstractType
                 [
                     'label' => 'label.phone',
                     'required' => true,
+                    'empty_data' => '',
                 ]
             )
             ->add(
