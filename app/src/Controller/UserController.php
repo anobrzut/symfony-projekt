@@ -118,13 +118,13 @@ class UserController extends AbstractController
                 $this->addFlash('success', $this->translator->trans('message.password_changed_successfully'));
 
                 return $this->redirectToRoute('user_index');
-            } else {
-                $this->addFlash('error', 'New password cannot be empty.');
             }
-        } else {
-            if ($form->isSubmitted()) {
-                $this->addFlash('error', 'Form is invalid. Please check the fields and try again.');
-            }
+
+            $this->addFlash('error', 'New password cannot be empty.');
+        }
+
+        if ($form->isSubmitted()) {
+            $this->addFlash('error', 'Form is invalid. Please check the fields and try again.');
         }
 
         return $this->render('user/change_password_admin.html.twig', [
@@ -132,7 +132,6 @@ class UserController extends AbstractController
             'user' => $user,
         ]);
     }
-
 
     /**
      * User list for admins.

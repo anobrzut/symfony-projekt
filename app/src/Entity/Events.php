@@ -107,6 +107,8 @@ class Events
      * Set the title of the event.
      *
      * @param string $title The title of the event
+     *
+     * @return static
      */
     public function setTitle(string $title): static
     {
@@ -129,6 +131,8 @@ class Events
      * Set the creation date of the event.
      *
      * @param \DateTimeInterface $createdAt The creation date
+     *
+     * @return static
      */
     public function setCreatedAt(\DateTimeInterface $createdAt): static
     {
@@ -151,6 +155,8 @@ class Events
      * Set the last update date of the event.
      *
      * @param \DateTimeInterface $updatedAt The last update date
+     *
+     * @return static
      */
     public function setUpdatedAt(\DateTimeInterface $updatedAt): static
     {
@@ -173,6 +179,8 @@ class Events
      * Set the description of the event.
      *
      * @param string|null $description The description of the event
+     *
+     * @return static
      */
     public function setDescription(?string $description): static
     {
@@ -195,6 +203,8 @@ class Events
      * Set the date of the event.
      *
      * @param \DateTimeInterface $date The event date
+     *
+     * @return static
      */
     public function setDate(\DateTimeInterface $date): static
     {
@@ -217,6 +227,8 @@ class Events
      * Set the category of the event.
      *
      * @param Category|null $category The event category
+     *
+     * @return static
      */
     public function setCategory(?Category $category): static
     {
@@ -239,6 +251,8 @@ class Events
      * Add a tag to the event.
      *
      * @param Tag $tag The tag to add
+     *
+     * @return static
      */
     public function addTag(Tag $tag): static
     {
@@ -253,6 +267,8 @@ class Events
      * Remove a tag from the event.
      *
      * @param Tag $tag The tag to remove
+     *
+     * @return static
      */
     public function removeTag(Tag $tag): static
     {
@@ -275,6 +291,8 @@ class Events
      * Set the author of the event.
      *
      * @param User|null $author The event author
+     *
+     * @return static
      */
     public function setAuthor(?User $author): static
     {

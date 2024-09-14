@@ -18,6 +18,22 @@
             <source>Your password should be at least {{ limit }} characters</source>
             <target>Your password should be at least {{ limit }} characters.</target>
          </trans-unit>
+         <trans-unit id="validator.current_password">
+             <source>Please enter your current password.</source>
+             <target>Please enter your current password.</target>
+         </trans-unit>
+         <trans-unit id="validator.new_password">
+             <source>Please enter a new password.</source>
+             <target>Please enter a new password.</target>
+         </trans-unit>
+         <trans-unit id="validator.new_password_min_length">
+             <source>Your new password should be at least {{ limit }} characters.</source>
+             <target>Your new password should be at least {{ limit }} characters.</target>
+         </trans-unit>
+         <trans-unit id="validator.confirm_new_password">
+             <source>Please confirm your new password.</source>
+             <target>Please confirm your new password.</target>
+         </trans-unit>
       </body>
    </file>
 </xliff>
