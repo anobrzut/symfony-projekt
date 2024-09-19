@@ -1,6 +1,6 @@
 <?php
 /**
- * Projekt Symfony - Zarzadzanie Informacja Osobista
+ * Projekt Symfony - Zarzadzanie Informacja Osobista.
  *
  * (c) Anna Obrzut 2024 <ania.obrzut@student.uj.edu.pl>
  */
@@ -9,8 +9,8 @@ namespace App\Service;
 
 use App\Entity\Category;
 use App\Entity\Events;
-use App\Entity\User;
 use App\Entity\Tag;
+use App\Entity\User;
 use App\Repository\CategoryRepository;
 use App\Repository\EventsRepository;
 use App\Repository\TagRepository;
@@ -53,7 +53,7 @@ class EventsService implements EventsServiceInterface
     {
         $queryBuilder = $this->eventsRepository->queryByUser($user);
 
-        if ($category) {
+        if ($category instanceof Category) {
             $queryBuilder->andWhere('events.category = :category')
                 ->setParameter('category', $category);
         }
@@ -63,7 +63,7 @@ class EventsService implements EventsServiceInterface
                 ->setParameter('today', new \DateTimeImmutable('today'));
         }
 
-        if ($tags) {
+        if ([] !== $tags) {
             $queryBuilder->join('events.tags', 't')
                 ->andWhere('t IN (:tags)')
                 ->setParameter('tags', $tags);

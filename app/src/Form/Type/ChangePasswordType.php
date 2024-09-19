@@ -1,6 +1,6 @@
 <?php
 /**
- * Projekt Symfony - Zarzadzanie Informacja Osobista
+ * Projekt Symfony - Zarzadzanie Informacja Osobista.
  *
  * (c) Anna Obrzut 2024 <ania.obrzut@student.uj.edu.pl>
  */

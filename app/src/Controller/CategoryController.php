@@ -1,6 +1,6 @@
 <?php
 /**
- * Projekt Symfony - Zarzadzanie Informacja Osobista
+ * Projekt Symfony - Zarzadzanie Informacja Osobista.
  *
  * (c) Anna Obrzut 2024 <ania.obrzut@student.uj.edu.pl>
  */
@@ -14,7 +14,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -23,7 +22,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  *
  * This controller manages CRUD operations for categories.
  */
-#[Route('/category')]
+#[\Symfony\Component\Routing\Attribute\Route('/category')]
 #[IsGranted('ROLE_ADMIN')]
 class CategoryController extends AbstractController
 {
@@ -46,7 +45,7 @@ class CategoryController extends AbstractController
      *
      * @return Response The response containing the list of categories
      */
-    #[Route(name: 'category_index', methods: 'GET')]
+    #[\Symfony\Component\Routing\Attribute\Route(name: 'category_index', methods: 'GET')]
     public function index(Request $request): Response
     {
         $page = $request->query->getInt('page', 1);
@@ -64,7 +63,7 @@ class CategoryController extends AbstractController
      *
      * @return Response The response showing the category details
      */
-    #[Route(
+    #[\Symfony\Component\Routing\Attribute\Route(
         '/{id}',
         name: 'category_show',
         requirements: ['id' => '[1-9]\d*'],
@@ -84,7 +83,7 @@ class CategoryController extends AbstractController
      *
      * @return Response The response for the category creation form
      */
-    #[Route(
+    #[\Symfony\Component\Routing\Attribute\Route(
         '/create',
         name: 'category_create',
         methods: ['GET', 'POST'],
@@ -117,7 +116,7 @@ class CategoryController extends AbstractController
      *
      * @return Response The response for the category edit form
      */
-    #[Route('/{id}/edit', name: 'category_edit', requirements: ['id' => '[1-9]\d*'], methods: ['GET', 'PUT'])]
+    #[\Symfony\Component\Routing\Attribute\Route('/{id}/edit', name: 'category_edit', requirements: ['id' => '[1-9]\d*'], methods: ['GET', 'PUT'])]
     public function edit(Request $request, Category $category): Response
     {
         $form = $this->createForm(
@@ -160,7 +159,7 @@ class CategoryController extends AbstractController
      *
      * @return Response The response for the category delete form
      */
-    #[Route('/{id}/delete', name: 'category_delete', requirements: ['id' => '[1-9]\d*'], methods: ['GET', 'DELETE'])]
+    #[\Symfony\Component\Routing\Attribute\Route('/{id}/delete', name: 'category_delete', requirements: ['id' => '[1-9]\d*'], methods: ['GET', 'DELETE'])]
     public function delete(Request $request, Category $category): Response
     {
         if (!$this->categoryService->canBeDeleted($category)) {

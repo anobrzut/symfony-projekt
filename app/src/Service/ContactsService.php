@@ -1,6 +1,6 @@
 <?php
 /**
- * Projekt Symfony - Zarzadzanie Informacja Osobista
+ * Projekt Symfony - Zarzadzanie Informacja Osobista.
  *
  * (c) Anna Obrzut 2024 <ania.obrzut@student.uj.edu.pl>
  */
@@ -8,11 +8,11 @@
 namespace App\Service;
 
 use App\Entity\Contacts;
+use App\Entity\Tag;
 use App\Entity\User;
 use App\Repository\ContactsRepository;
 use Knp\Component\Pager\Pagination\PaginationInterface;
 use Knp\Component\Pager\PaginatorInterface;
-use App\Entity\Tag;
 
 /**
  * Class ContactsService.
@@ -82,7 +82,7 @@ class ContactsService implements ContactsServiceInterface
         foreach ($tags as $tagTitle) {
             $tag = $this->tagService->findOneByTitle($tagTitle);
 
-            if (null === $tag) {
+            if (!$tag instanceof Tag) {
                 $tag = new Tag();
                 $tag->setTitle($tagTitle);
                 $this->tagService->save($tag);
@@ -105,7 +105,7 @@ class ContactsService implements ContactsServiceInterface
         foreach ($tags as $tagTitle) {
             $tag = $this->tagService->findOneByTitle($tagTitle);
 
-            if (null !== $tag) {
+            if ($tag instanceof Tag) {
                 $contacts->removeTag($tag);
             }
         }

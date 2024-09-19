@@ -1,6 +1,6 @@
 <?php
 /**
- * Projekt Symfony - Zarzadzanie Informacja Osobista
+ * Projekt Symfony - Zarzadzanie Informacja Osobista.
  *
  * (c) Anna Obrzut 2024 <ania.obrzut@student.uj.edu.pl>
  */
@@ -68,8 +68,6 @@ class EventsRepository extends ServiceEntityRepository
      * Save an event entity.
      *
      * @param Events $event The event entity to save
-     *
-     * @return void
      */
     public function save(Events $event): void
     {
@@ -82,8 +80,6 @@ class EventsRepository extends ServiceEntityRepository
      * Delete an event entity.
      *
      * @param Events $event The event entity to delete
-     *
-     * @return void
      */
     public function delete(Events $event): void
     {
@@ -119,7 +115,7 @@ class EventsRepository extends ServiceEntityRepository
      *
      * @return QueryBuilder Query builder
      */
-    private function getOrCreateQueryBuilder(QueryBuilder $queryBuilder = null): QueryBuilder
+    private function getOrCreateQueryBuilder(?QueryBuilder $queryBuilder = null): QueryBuilder
     {
         return $queryBuilder ?? $this->createQueryBuilder('events');
     }

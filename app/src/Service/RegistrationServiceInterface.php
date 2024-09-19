@@ -1,6 +1,6 @@
 <?php
 /**
- * Projekt Symfony - Zarzadzanie Informacja Osobista
+ * Projekt Symfony - Zarzadzanie Informacja Osobista.
  *
  * (c) Anna Obrzut 2024 <ania.obrzut@student.uj.edu.pl>
  */
@@ -17,7 +17,7 @@ interface RegistrationServiceInterface
     /**
      * Register a new user with a hashed password.
      *
-     * @param User $user
+     * @param $user User
      */
     public function registerUser(User $user): void;
 }

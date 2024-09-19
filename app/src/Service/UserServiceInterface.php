@@ -1,6 +1,6 @@
 <?php
 /**
- * Projekt Symfony - Zarzadzanie Informacja Osobista
+ * Projekt Symfony - Zarzadzanie Informacja Osobista.
  *
  * (c) Anna Obrzut 2024 <ania.obrzut@student.uj.edu.pl>
  */
@@ -28,8 +28,6 @@ interface UserServiceInterface
      * Save a user entity.
      *
      * @param User $user The user entity to save
-     *
-     * @return void
      */
     public function save(User $user): void;
 
@@ -37,8 +35,6 @@ interface UserServiceInterface
      * Delete a user entity.
      *
      * @param User $user The user entity to delete
-     *
-     * @return void
      */
     public function delete(User $user): void;
 }

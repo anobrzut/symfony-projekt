@@ -1,6 +1,6 @@
 <?php
 /**
- * Projekt Symfony - Zarzadzanie Informacja Osobista
+ * Projekt Symfony - Zarzadzanie Informacja Osobista.
  *
  * (c) Anna Obrzut 2024 <ania.obrzut@student.uj.edu.pl>
  */
@@ -9,7 +9,6 @@ namespace App\DataFixtures;
 
 use App\Entity\Enum\UserRole;
 use App\Entity\User;
-use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Faker\Factory;
 
@@ -20,16 +19,13 @@ use Faker\Factory;
  */
 class UserFixtures extends AbstractBaseFixtures
 {
-    private UserPasswordHasherInterface $passwordHasher;
-
     /**
      * Constructor.
      *
      * @param UserPasswordHasherInterface $passwordHasher The password hasher
      */
-    public function __construct(UserPasswordHasherInterface $passwordHasher)
+    public function __construct(private readonly UserPasswordHasherInterface $passwordHasher)
     {
-        $this->passwordHasher = $passwordHasher;
         $this->faker = Factory::create();
     }
 

@@ -1,6 +1,6 @@
 <?php
 /**
- * Projekt Symfony - Zarzadzanie Informacja Osobista
+ * Projekt Symfony - Zarzadzanie Informacja Osobista.
  *
  * (c) Anna Obrzut 2024 <ania.obrzut@student.uj.edu.pl>
  */
@@ -53,7 +53,7 @@ class CategoryRepository extends ServiceEntityRepository
      *
      * @param Category $category Category entity
      *
-     * @throws DoctrineORMException If there is a database-related issue
+     * @throws DoctrineORMException    If there is a database-related issue
      * @throws OptimisticLockException If there is an optimistic lock failure
      */
     public function save(Category $category): void
@@ -68,7 +68,7 @@ class CategoryRepository extends ServiceEntityRepository
      *
      * @param Category $category Category entity
      *
-     * @throws DoctrineORMException If there is a database-related issue
+     * @throws DoctrineORMException    If there is a database-related issue
      * @throws OptimisticLockException If there is an optimistic lock failure
      */
     public function delete(Category $category): void
@@ -85,7 +85,7 @@ class CategoryRepository extends ServiceEntityRepository
      *
      * @return QueryBuilder Query builder
      */
-    private function getOrCreateQueryBuilder(QueryBuilder $queryBuilder = null): QueryBuilder
+    private function getOrCreateQueryBuilder(?QueryBuilder $queryBuilder = null): QueryBuilder
     {
         return $queryBuilder ?? $this->createQueryBuilder('category');
     }

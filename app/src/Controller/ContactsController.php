@@ -1,6 +1,6 @@
 <?php
 /**
- * Projekt Symfony - Zarzadzanie Informacja Osobista
+ * Projekt Symfony - Zarzadzanie Informacja Osobista.
  *
  * (c) Anna Obrzut 2024 <ania.obrzut@student.uj.edu.pl>
  */
@@ -14,26 +14,22 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * Class ContactsController.
  *
  * Handles CRUD operations for contacts.
  */
-#[Route('/contacts')]
+#[\Symfony\Component\Routing\Attribute\Route('/contacts')]
 class ContactsController extends AbstractController
 {
-    private ContactsServiceInterface $contactsService;
-
     /**
      * Constructor.
      *
      * @param ContactsServiceInterface $contactsService The contacts service
      */
-    public function __construct(ContactsServiceInterface $contactsService)
+    public function __construct(private readonly ContactsServiceInterface $contactsService)
     {
-        $this->contactsService = $contactsService;
     }
 
     /**
@@ -43,7 +39,7 @@ class ContactsController extends AbstractController
      *
      * @return Response The response with the contacts list
      */
-    #[Route(name: 'contacts_index', methods: 'GET')]
+    #[\Symfony\Component\Routing\Attribute\Route(name: 'contacts_index', methods: 'GET')]
     public function index(Request $request): Response
     {
         $page = $request->query->getInt('page', 1);
@@ -67,7 +63,7 @@ class ContactsController extends AbstractController
      *
      * @return Response The response with the contact details
      */
-    #[Route('/{id}', name: 'contacts_show', requirements: ['id' => '[1-9]\d*'], methods: 'GET')]
+    #[\Symfony\Component\Routing\Attribute\Route('/{id}', name: 'contacts_show', requirements: ['id' => '[1-9]\d*'], methods: 'GET')]
     public function show(Contacts $contact): Response
     {
         return $this->render('contacts/show.html.twig', ['contact' => $contact]);
@@ -80,7 +76,7 @@ class ContactsController extends AbstractController
      *
      * @return Response The response for the contact creation form
      */
-    #[Route('/create', name: 'contacts_create', methods: ['GET', 'POST'])]
+    #[\Symfony\Component\Routing\Attribute\Route('/create', name: 'contacts_create', methods: ['GET', 'POST'])]
     public function create(Request $request): Response
     {
         /** @var \App\Entity\User|null $user */
@@ -116,7 +112,7 @@ class ContactsController extends AbstractController
      *
      * @return Response The response for the contact edit form
      */
-    #[Route('/{id}/edit', name: 'contacts_edit', requirements: ['id' => '[1-9]\d*'], methods: ['GET', 'PUT'])]
+    #[\Symfony\Component\Routing\Attribute\Route('/{id}/edit', name: 'contacts_edit', requirements: ['id' => '[1-9]\d*'], methods: ['GET', 'PUT'])]
     public function edit(Request $request, Contacts $contact): Response
     {
         $form = $this->createForm(ContactsType::class, $contact, [
@@ -147,7 +143,7 @@ class ContactsController extends AbstractController
      *
      * @return Response The response for the contact delete form
      */
-    #[Route('/{id}/delete', name: 'contacts_delete', requirements: ['id' => '[1-9]\d*'], methods: ['GET', 'DELETE'])]
+    #[\Symfony\Component\Routing\Attribute\Route('/{id}/delete', name: 'contacts_delete', requirements: ['id' => '[1-9]\d*'], methods: ['GET', 'DELETE'])]
     public function delete(Request $request, Contacts $contact): Response
     {
         $form = $this->createForm(FormType::class, $contact, [

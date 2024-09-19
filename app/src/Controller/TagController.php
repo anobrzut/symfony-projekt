@@ -1,6 +1,6 @@
 <?php
 /**
- * Projekt Symfony - Zarzadzanie Informacja Osobista
+ * Projekt Symfony - Zarzadzanie Informacja Osobista.
  *
  * (c) Anna Obrzut 2024 <ania.obrzut@student.uj.edu.pl>
  */
@@ -13,7 +13,6 @@ use App\Service\TagServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -22,7 +21,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  *
  * Handles CRUD operations for tags.
  */
-#[Route('/tag')]
+#[\Symfony\Component\Routing\Attribute\Route('/tag')]
 #[IsGranted('ROLE_ADMIN')]
 class TagController extends AbstractController
 {
@@ -43,7 +42,7 @@ class TagController extends AbstractController
      *
      * @return Response The response containing the tag list
      */
-    #[Route(name: 'tag_index', methods: 'GET')]
+    #[\Symfony\Component\Routing\Attribute\Route(name: 'tag_index', methods: 'GET')]
     public function index(Request $request): Response
     {
         $page = $request->query->getInt('page', 1);
@@ -59,7 +58,7 @@ class TagController extends AbstractController
      *
      * @return Response The response for the tag creation form
      */
-    #[Route('/create', name: 'tag_create', methods: ['GET', 'POST'])]
+    #[\Symfony\Component\Routing\Attribute\Route('/create', name: 'tag_create', methods: ['GET', 'POST'])]
     public function create(Request $request): Response
     {
         $tag = new Tag();
@@ -84,7 +83,7 @@ class TagController extends AbstractController
      *
      * @return Response The response showing the tag details
      */
-    #[Route('/{id}', name: 'tag_show', requirements: ['id' => '\d+'], methods: 'GET')]
+    #[\Symfony\Component\Routing\Attribute\Route('/{id}', name: 'tag_show', requirements: ['id' => '\d+'], methods: 'GET')]
     public function show(Tag $tag): Response
     {
         return $this->render('tag/show.html.twig', ['tag' => $tag]);
@@ -98,7 +97,7 @@ class TagController extends AbstractController
      *
      * @return Response The response for the tag edit form
      */
-    #[Route('/{id}/edit', name: 'tag_edit', requirements: ['id' => '\d+'], methods: ['GET', 'PUT'])]
+    #[\Symfony\Component\Routing\Attribute\Route('/{id}/edit', name: 'tag_edit', requirements: ['id' => '\d+'], methods: ['GET', 'PUT'])]
     public function edit(Request $request, Tag $tag): Response
     {
         $form = $this->createForm(TagType::class, $tag, [
@@ -127,12 +126,12 @@ class TagController extends AbstractController
      *
      * @return Response The response for the tag deletion form
      */
-    #[Route('/{id}/delete', name: 'tag_delete', requirements: ['id' => '\d+'], methods: ['GET', 'DELETE'])]
+    #[\Symfony\Component\Routing\Attribute\Route('/{id}/delete', name: 'tag_delete', requirements: ['id' => '\d+'], methods: ['GET', 'DELETE'])]
     public function delete(Request $request, Tag $tag): Response
     {
         $form = $this->createFormBuilder()
             ->setAction($this->generateUrl('tag_delete', ['id' => $tag->getId()]))
-            ->setMethod('DELETE')
+            ->setMethod(Request::METHOD_DELETE)
             ->getForm();
 
         $form->handleRequest($request);

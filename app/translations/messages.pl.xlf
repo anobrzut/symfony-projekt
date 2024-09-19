@@ -366,6 +366,10 @@
           <source>label.password_repeat</source>
           <target>Powtórz hasło</target>
       </trans-unit>
+      <trans-unit id="Choose a category">
+                <source>Choose a category</source>
+                <target>Wybierz kategorię</target>
+            </trans-unit>
     </body>
   </file>
 </xliff>

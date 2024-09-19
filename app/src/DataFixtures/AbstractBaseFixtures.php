@@ -1,6 +1,6 @@
 <?php
 /**
- * Projekt Symfony - Zarzadzanie Informacja Osobista
+ * Projekt Symfony - Zarzadzanie Informacja Osobista.
  *
  * (c) Anna Obrzut 2024 <ania.obrzut@student.uj.edu.pl>
  */
@@ -24,15 +24,11 @@ abstract class AbstractBaseFixtures extends Fixture
 
     /**
      * Persistence object manager.
-     *
-     * @var ObjectManager
      */
     protected ObjectManager $manager;
 
     /**
      * References index.
-     *
-     * @var array
      */
     private array $referencesIndex = [];
 
@@ -62,7 +58,7 @@ abstract class AbstractBaseFixtures extends Fixture
      */
     protected function createMany(int $count, string $groupName, callable $factory): void
     {
-        for ($i = 0; $i < $count; $i++) {
+        for ($i = 0; $i < $count; ++$i) {
             $entity = $factory($i);
 
             if (null === $entity) {
@@ -88,7 +84,7 @@ abstract class AbstractBaseFixtures extends Fixture
         if (!isset($this->referencesIndex[$groupName])) {
             $this->referencesIndex[$groupName] = [];
 
-            foreach ($this->referenceRepository->getReferences() as $key => $ref) {
+            foreach (array_keys($this->referenceRepository->getReferences()) as $key) {
                 if (str_starts_with($key, $groupName.'_')) {
                     $this->referencesIndex[$groupName][] = $key;
                 }
@@ -115,7 +111,7 @@ abstract class AbstractBaseFixtures extends Fixture
     protected function getRandomReferences(string $groupName, int $count): array
     {
         $references = [];
-        for ($i = 0; $i < $count; $i++) {
+        for ($i = 0; $i < $count; ++$i) {
             $references[] = $this->getRandomReference($groupName);
         }
 

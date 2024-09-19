@@ -1,6 +1,6 @@
 <?php
 /**
- * Projekt Symfony - Zarzadzanie Informacja Osobista
+ * Projekt Symfony - Zarzadzanie Informacja Osobista.
  *
  * (c) Anna Obrzut 2024 <ania.obrzut@student.uj.edu.pl>
  */
@@ -19,7 +19,7 @@ class TagRepository extends ServiceEntityRepository
     /**
      * TagRepository constructor.
      *
-     * @param ManagerRegistry $registry The registry to use for entity management.
+     * @param ManagerRegistry $registry the registry to use for entity management
      */
     public function __construct(ManagerRegistry $registry)
     {
@@ -29,9 +29,9 @@ class TagRepository extends ServiceEntityRepository
     /**
      * Find a Tag entity by its title.
      *
-     * @param string $title The title to search for.
+     * @param string $title the title to search for
      *
-     * @return Tag|null The Tag entity or null if not found.
+     * @return Tag|null the Tag entity or null if not found
      */
     public function findOneByTitle(string $title): ?Tag
     {
@@ -41,9 +41,7 @@ class TagRepository extends ServiceEntityRepository
     /**
      * Save a Tag entity to the database.
      *
-     * @param Tag $tag The Tag entity to save.
-     *
-     * @return void
+     * @param Tag $tag the Tag entity to save
      */
     public function save(Tag $tag): void
     {
@@ -55,9 +53,7 @@ class TagRepository extends ServiceEntityRepository
     /**
      * Delete a Tag entity from the database.
      *
-     * @param Tag $tag The Tag entity to delete.
-     *
-     * @return void
+     * @param Tag $tag the Tag entity to delete
      */
     public function delete(Tag $tag): void
     {

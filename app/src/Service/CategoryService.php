@@ -24,10 +24,6 @@ class CategoryService implements CategoryServiceInterface
 {
     private const PAGINATOR_ITEMS_PER_PAGE = 5;
 
-    private CategoryRepository $categoryRepository;
-    private EventsRepository $eventsRepository;
-    private PaginatorInterface $paginator;
-
     /**
      * Constructor.
      *
@@ -35,11 +31,8 @@ class CategoryService implements CategoryServiceInterface
      * @param EventsRepository   $eventsRepository   The events repository
      * @param PaginatorInterface $paginator          The paginator service
      */
-    public function __construct(CategoryRepository $categoryRepository, EventsRepository $eventsRepository, PaginatorInterface $paginator)
+    public function __construct(private readonly CategoryRepository $categoryRepository, private readonly EventsRepository $eventsRepository, private readonly PaginatorInterface $paginator)
     {
-        $this->categoryRepository = $categoryRepository;
-        $this->eventsRepository = $eventsRepository;
-        $this->paginator = $paginator;
     }
 
     /**
@@ -95,8 +88,8 @@ class CategoryService implements CategoryServiceInterface
         try {
             $result = $this->eventsRepository->countByCategory($category);
 
-            return !($result > 0);
-        } catch (NoResultException|NonUniqueResultException $e) {
+            return $result <= 0;
+        } catch (NoResultException|NonUniqueResultException) {
             return false;
         }
     }

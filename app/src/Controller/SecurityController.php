@@ -13,7 +13,6 @@ use App\Service\RegistrationServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -31,7 +30,7 @@ class SecurityController extends AbstractController
      *
      * @return Response Renders the login page
      */
-    #[Route(path: '/login', name: 'app_login')]
+    #[\Symfony\Component\Routing\Attribute\Route(path: '/login', name: 'app_login')]
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
         $error = $authenticationUtils->getLastAuthenticationError();
@@ -50,7 +49,7 @@ class SecurityController extends AbstractController
      *
      * @throws \LogicException this method should never be executed directly
      */
-    #[Route(path: '/logout', name: 'app_logout')]
+    #[\Symfony\Component\Routing\Attribute\Route(path: '/logout', name: 'app_logout')]
     public function logout(): void
     {
         throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
@@ -65,10 +64,10 @@ class SecurityController extends AbstractController
      *
      * @return Response Renders the registration form and handles the submission
      */
-    #[Route(path: '/register', name: 'app_register')]
+    #[\Symfony\Component\Routing\Attribute\Route(path: '/register', name: 'app_register')]
     public function register(Request $request, RegistrationServiceInterface $registrationService, TranslatorInterface $translator): Response
     {
-        if ($this->getUser()) {
+        if ($this->getUser() instanceof \Symfony\Component\Security\Core\User\UserInterface) {
             return $this->redirectToRoute('app_home');
         }
 

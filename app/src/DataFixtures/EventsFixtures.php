@@ -1,6 +1,6 @@
 <?php
 /**
- * Projekt Symfony - Zarzadzanie Informacja Osobista
+ * Projekt Symfony - Zarzadzanie Informacja Osobista.
  *
  * (c) Anna Obrzut 2024 <ania.obrzut@student.uj.edu.pl>
  */
@@ -11,7 +11,6 @@ use App\Entity\Events;
 use App\Entity\Category;
 use App\Entity\Tag;
 use App\Entity\User;
-use DateTimeImmutable;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
 /**
@@ -49,8 +48,8 @@ class EventsFixtures extends AbstractBaseFixtures implements DependentFixtureInt
             $event->setTitle($this->faker->sentence);
             $event->setDescription($this->faker->sentence);
             $event->setDate($this->faker->dateTimeBetween('now', '+100 days'));
-            $event->setCreatedAt(DateTimeImmutable::createFromMutable($this->faker->dateTimeBetween('-100 days', '-1 days')));
-            $event->setUpdatedAt(DateTimeImmutable::createFromMutable($this->faker->dateTimeBetween('-100 days', '-1 days')));
+            $event->setCreatedAt(\DateTimeImmutable::createFromMutable($this->faker->dateTimeBetween('-100 days', '-1 days')));
+            $event->setUpdatedAt(\DateTimeImmutable::createFromMutable($this->faker->dateTimeBetween('-100 days', '-1 days')));
 
             /** @var Category $category */
             $category = $this->getRandomReference('categories');

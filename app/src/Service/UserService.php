@@ -1,6 +1,6 @@
 <?php
 /**
- * Projekt Symfony - Zarzadzanie Informacja Osobista
+ * Projekt Symfony - Zarzadzanie Informacja Osobista.
  *
  * (c) Anna Obrzut 2024 <ania.obrzut@student.uj.edu.pl>
  */
@@ -23,11 +23,6 @@ class UserService implements UserServiceInterface
 {
     private const PAGINATOR_ITEMS_PER_PAGE = 10;
 
-    private UserRepository $userRepository;
-    private PaginatorInterface $paginator;
-    private EntityManagerInterface $entityManager;
-    private UserPasswordHasherInterface $passwordHasher;
-
     /**
      * Constructor.
      *
@@ -36,12 +31,8 @@ class UserService implements UserServiceInterface
      * @param EntityManagerInterface      $entityManager  The entity manager
      * @param UserPasswordHasherInterface $passwordHasher The password hasher service
      */
-    public function __construct(UserRepository $userRepository, PaginatorInterface $paginator, EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher)
+    public function __construct(private readonly UserRepository $userRepository, private readonly PaginatorInterface $paginator, private readonly EntityManagerInterface $entityManager, private readonly UserPasswordHasherInterface $passwordHasher)
     {
-        $this->userRepository = $userRepository;
-        $this->paginator = $paginator;
-        $this->entityManager = $entityManager;
-        $this->passwordHasher = $passwordHasher;
     }
 
     /**

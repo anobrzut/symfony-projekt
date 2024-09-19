@@ -1,6 +1,6 @@
 <?php
 /**
- * Projekt Symfony - Zarzadzanie Informacja Osobista
+ * Projekt Symfony - Zarzadzanie Informacja Osobista.
  *
  * (c) Anna Obrzut 2024 <ania.obrzut@student.uj.edu.pl>
  */
@@ -21,16 +21,13 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  */
 class TagType extends AbstractType
 {
-    private TranslatorInterface $translator;
-
     /**
      * Constructor.
      *
      * @param TranslatorInterface $translator The translator service
      */
-    public function __construct(TranslatorInterface $translator)
+    public function __construct(private readonly TranslatorInterface $translator)
     {
-        $this->translator = $translator;
     }
 
     /**

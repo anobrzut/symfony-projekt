@@ -1,6 +1,6 @@
 <?php
 /**
- * Projekt Symfony - Zarzadzanie Informacja Osobista
+ * Projekt Symfony - Zarzadzanie Informacja Osobista.
  *
  * (c) Anna Obrzut 2024 <ania.obrzut@student.uj.edu.pl>
  */
@@ -15,14 +15,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * Class EventsController.
  */
-#[Route('/events')]
+#[\Symfony\Component\Routing\Attribute\Route('/events')]
 class EventsController extends AbstractController
 {
     /**
@@ -42,7 +41,7 @@ class EventsController extends AbstractController
      *
      * @return Response HTTP response
      */
-    #[Route(name: 'event_index', methods: 'GET')]
+    #[\Symfony\Component\Routing\Attribute\Route(name: 'event_index', methods: 'GET')]
     public function index(Request $request): Response
     {
         $page = $request->query->getInt('page', 1);
@@ -77,7 +76,7 @@ class EventsController extends AbstractController
      *
      * @return Response HTTP response
      */
-    #[Route('/{id}', name: 'event_show', requirements: ['id' => '[1-9]\d*'], methods: 'GET')]
+    #[\Symfony\Component\Routing\Attribute\Route('/{id}', name: 'event_show', requirements: ['id' => '[1-9]\d*'], methods: 'GET')]
     #[IsGranted('VIEW', subject: 'event')]
     public function show(Events $event): Response
     {
@@ -91,7 +90,7 @@ class EventsController extends AbstractController
      *
      * @return Response HTTP response
      */
-    #[Route('/create', name: 'event_create', methods: ['GET', 'POST'])]
+    #[\Symfony\Component\Routing\Attribute\Route('/create', name: 'event_create', methods: ['GET', 'POST'])]
     public function create(Request $request): Response
     {
         /** @var User $user */
@@ -124,7 +123,7 @@ class EventsController extends AbstractController
      *
      * @return Response HTTP response
      */
-    #[Route('/{id}/edit', name: 'event_edit', requirements: ['id' => '[1-9]\d*'], methods: ['GET', 'PUT'])]
+    #[\Symfony\Component\Routing\Attribute\Route('/{id}/edit', name: 'event_edit', requirements: ['id' => '[1-9]\d*'], methods: ['GET', 'PUT'])]
     #[IsGranted('EDIT', subject: 'event')]
     public function edit(Request $request, Events $event): Response
     {
@@ -166,7 +165,7 @@ class EventsController extends AbstractController
      *
      * @return Response HTTP response
      */
-    #[Route('/{id}/delete', name: 'event_delete', requirements: ['id' => '[1-9]\d*'], methods: ['GET', 'DELETE'])]
+    #[\Symfony\Component\Routing\Attribute\Route('/{id}/delete', name: 'event_delete', requirements: ['id' => '[1-9]\d*'], methods: ['GET', 'DELETE'])]
     #[IsGranted('DELETE', subject: 'event')]
     public function delete(Request $request, Events $event): Response
     {

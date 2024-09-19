@@ -1,6 +1,6 @@
 <?php
 /**
- * Projekt Symfony - Zarzadzanie Informacja Osobista
+ * Projekt Symfony - Zarzadzanie Informacja Osobista.
  *
  * (c) Anna Obrzut 2024 <ania.obrzut@student.uj.edu.pl>
  */
@@ -51,8 +51,6 @@ class ContactsRepository extends ServiceEntityRepository
      * Save entity.
      *
      * @param Contacts $contact Contacts entity
-     *
-     * @return void
      */
     public function save(Contacts $contact): void
     {
@@ -65,8 +63,6 @@ class ContactsRepository extends ServiceEntityRepository
      * Delete entity.
      *
      * @param Contacts $contact Contacts entity
-     *
-     * @return void
      */
     public function delete(Contacts $contact): void
     {
