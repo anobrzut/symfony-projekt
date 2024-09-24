@@ -125,7 +125,7 @@ class Events
      *
      * @param string $title Title
      *
-     * @return static
+     * @return static Current Events entity
      */
     public function setTitle(string $title): static
     {
@@ -149,7 +149,7 @@ class Events
      *
      * @param \DateTimeInterface $createdAt Creation date
      *
-     * @return static
+     * @return static Current Events entity
      */
     public function setCreatedAt(\DateTimeInterface $createdAt): static
     {
@@ -173,7 +173,7 @@ class Events
      *
      * @param \DateTimeInterface $updatedAt Update date
      *
-     * @return static
+     * @return static Current Events entity
      */
     public function setUpdatedAt(\DateTimeInterface $updatedAt): static
     {
@@ -197,7 +197,7 @@ class Events
      *
      * @param string|null $description Description
      *
-     * @return static
+     * @return static Current Events entity
      */
     public function setDescription(?string $description): static
     {
@@ -221,7 +221,7 @@ class Events
      *
      * @param \DateTimeInterface $date Event date
      *
-     * @return static
+     * @return static Current Events entity
      */
     public function setDate(\DateTimeInterface $date): static
     {
@@ -245,7 +245,7 @@ class Events
      *
      * @param Category|null $category Category
      *
-     * @return static
+     * @return static Current Events entity
      */
     public function setCategory(?Category $category): static
     {
@@ -269,7 +269,7 @@ class Events
      *
      * @param Tag $tag Tag to add
      *
-     * @return static
+     * @return static Current Events entity
      */
     public function addTag(Tag $tag): static
     {
@@ -285,7 +285,7 @@ class Events
      *
      * @param Tag $tag Tag to remove
      *
-     * @return static
+     * @return static Current Events entity
      */
     public function removeTag(Tag $tag): static
     {
@@ -309,7 +309,7 @@ class Events
      *
      * @param User|null $author Author
      *
-     * @return static
+     * @return static Current Events entity
      */
     public function setAuthor(?User $author): static
     {

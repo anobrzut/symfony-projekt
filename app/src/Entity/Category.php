@@ -90,7 +90,7 @@ class Category
      *
      * @param \DateTimeImmutable $createdAt Creation date
      *
-     * @return self
+     * @return self Current Category entity
      */
     public function setCreatedAt(\DateTimeImmutable $createdAt): self
     {
@@ -114,7 +114,7 @@ class Category
      *
      * @param \DateTimeImmutable $updatedAt Update date
      *
-     * @return self
+     * @return self Current Category entity
      */
     public function setUpdatedAt(\DateTimeImmutable $updatedAt): self
     {
@@ -138,7 +138,7 @@ class Category
      *
      * @param string $title Category title
      *
-     * @return self
+     * @return self Current Category entity
      */
     public function setTitle(string $title): self
     {
@@ -162,7 +162,7 @@ class Category
      *
      * @param string $slug Category slug
      *
-     * @return self
+     * @return self Current Category entity
      */
     public function setSlug(string $slug): self
     {

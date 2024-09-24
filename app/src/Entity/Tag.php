@@ -109,7 +109,7 @@ class Tag
      *
      * @param string $slug Slug
      *
-     * @return self
+     * @return self Current Tag entity
      */
     public function setSlug(string $slug): self
     {
@@ -133,7 +133,7 @@ class Tag
      *
      * @param string $title Title
      *
-     * @return self
+     * @return self Current Tag entity
      */
     public function setTitle(string $title): self
     {

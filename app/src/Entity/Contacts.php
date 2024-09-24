@@ -112,7 +112,7 @@ class Contacts
      *
      * @param string $phone Phone number
      *
-     * @return static
+     * @return static Current Contacts entity
      */
     public function setPhone(string $phone): static
     {
@@ -136,7 +136,7 @@ class Contacts
      *
      * @param string $name Name
      *
-     * @return static
+     * @return static Current Contacts entity
      */
     public function setName(string $name): static
     {
@@ -160,7 +160,7 @@ class Contacts
      *
      * @param string|null $description Description
      *
-     * @return static
+     * @return static Current Contacts entity
      */
     public function setDescription(?string $description): static
     {
@@ -204,7 +204,7 @@ class Contacts
      *
      * @param User|null $author Author
      *
-     * @return static
+     * @return static Current Contacts entity
      */
     public function setAuthor(?User $author): static
     {
@@ -228,7 +228,7 @@ class Contacts
      *
      * @param Tag $tag Tag to add
      *
-     * @return static
+     * @return static Current Contacts entity
      */
     public function addTag(Tag $tag): static
     {
@@ -244,7 +244,7 @@ class Contacts
      *
      * @param Tag $tag Tag to remove
      *
-     * @return static
+     * @return static Current Contacts entity
      */
     public function removeTag(Tag $tag): static
     {
